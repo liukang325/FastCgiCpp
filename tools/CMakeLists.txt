@@ -6,6 +6,8 @@ add_definitions(-DLIBTOOL_EXPORTS)
 add_definitions(-D_AFXDLL)
 
 set(libTool_HEAD
+    TGlobal.h
+    TConf.h
     TFile.h
     TLog.h
     TSocket.h
@@ -13,6 +15,7 @@ set(libTool_HEAD
     )
 
 set(libTool_SRC
+    TConf.cpp
     TFile.cpp
     TLog.cpp
     TSocket.cpp

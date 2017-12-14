@@ -6,10 +6,11 @@ MESSAGE(STATUS "==========" ${PROJECT_SOURCE_DIR})
 
 
 set(APP_HEAD
-
+    Manage.h
     )
 
 set(APP_SRC
+    Manage.cpp
     main.cpp
     )
 
