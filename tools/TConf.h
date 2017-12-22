@@ -35,6 +35,6 @@ private:
     std::string m_configName;
 };
 
-} //namespace HeyShow
+} //namespace Tool
 
 
