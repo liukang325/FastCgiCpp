@@ -3,15 +3,15 @@
  *
  *       Filename:  TConf.h
  *
- *    Description:  
+ *    Description:
  *
  *        Version:  1.0
  *        Created:  2017年12月14日 16时24分24秒
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author:  liukang
- *        Company:  
+ *         Author:  liukang,
+ *        Company:
  *
  * =====================================================================================
  */
@@ -20,21 +20,15 @@
 
 #include <string>
 
-namespace Tool {
+namespace ToolTest {
 
-class  TConf
+class  TestTConf
 {
 public:
-    TConf(std::string configName);
-    ~TConf();
+    TestTConf();
 
-    std::string getConfStr(std::string group, std::string key);
-    void setConfStr(std::string group, std::string key, std::string value);
 
 private:
-    std::string m_configName;
 };
 
 } //namespace HeyShow
-
-

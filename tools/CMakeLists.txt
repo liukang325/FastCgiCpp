@@ -1,4 +1,4 @@
-project(libTool)
+project(Tool)
 
 # include_directories(SYSTEM "inc")
 
@@ -22,7 +22,7 @@ set(libTool_SRC
     TSql.cpp
     )
 
-add_library(libTool SHARED
+add_library(Tool SHARED
         ${libTool_HEAD}
         ${libTool_SRC})
 

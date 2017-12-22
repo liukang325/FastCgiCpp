@@ -24,6 +24,11 @@ Tool::TConf::TConf(std::string configName):
 
 }
 
+Tool::TConf::~TConf()
+{
+
+}
+
 std::string Tool::TConf::getConfStr(std::string group, std::string key)
 {
 
