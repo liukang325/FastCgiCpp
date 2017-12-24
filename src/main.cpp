@@ -26,15 +26,32 @@
 #ifdef HAVE_UNISTD_H  
 #include <unistd.h>  
 #endif  
-  
-using namespace std;  
+
+#include "Manage.h"
+#include "TLog.h"
   
 int main(void)  
 {  
     int i = 0;  
 
+    TLOG->initConfig(L_INFO, "file");
+    DBG(L_INFO, "~~~~test ~~");
+
     while(FCGI_Accept() >= 0){  
 
+        HttpInfo httpInfo;
+        httpInfo.requestMethod = std::string(getenv("REQUEST_METHOD"));
+        httpInfo.requestURI = std::string(getenv("REQUEST_URI"));
+        httpInfo.scriptStr = std::string(getenv("SCRIPT_NAME"));
+        httpInfo.queryStr = std::string(getenv("QUERY_STRING"));
+
+        Manage man(httpInfo);
+        DBG(L_WARN, "~~~~%s", man.response().c_str());
+        printf("Content-type: text/html\r\n\r\n" \
+               "<html><head><title>Test</title></head>" \
+               "<body>%s</body></html>", man.response().c_str());
+
+#if 0
         printf("Content-type: text/html\r\n\r\n" \  
                 "<html><head><title>Test</title></head>" \  
                 "<body>%s %d " \
@@ -72,6 +89,7 @@ int main(void)
                 getenv("SERVER_ADDR"),  
                 getenv("SERVER_PORT"),  
                 getenv("SERVER_NAME"));  
+#endif
     }  
 
     return 0;  

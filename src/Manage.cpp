@@ -16,3 +16,29 @@
  * =====================================================================================
  */
 
+#include "Manage.h"
+
+Manage::Manage(HttpInfo httpInfo):
+    m_httpInfo(httpInfo)
+{
+
+}
+
+
+Manage::~Manage()
+{
+
+}
+
+std::string Manage::response()
+{
+    if("GET" == m_httpInfo.requestMethod)
+    {
+        return "get haha";
+    }
+    else if("POST" == m_httpInfo.requestMethod)
+    {
+        return "post haha";
+    }
+
+}

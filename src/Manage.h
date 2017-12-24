@@ -16,3 +16,25 @@
  * =====================================================================================
  */
 
+#include <string>
+
+struct HttpInfo{
+    std::string requestMethod;
+    std::string requestURI;
+    std::string scriptStr;
+    std::string queryStr;
+};
+
+class  Manage
+{
+public:
+    Manage(HttpInfo httpInfo);
+    ~Manage();
+
+    std::string response();
+
+private:
+
+    HttpInfo m_httpInfo;
+
+};
