@@ -38,3 +38,16 @@ void Tool::TConf::setConfStr(std::string group, std::string key, std::string val
 {
 
 }
+
+
+#ifdef TEST_MAIN
+int main(int args, char* argv[])
+{
+
+    Tool::TConf mConf("./test.conf");
+    mConf.setConfStr("[LOG]", "level", "debug");
+    mConf.getConfStr("[LOG]", "level");
+
+    return 0;
+}
+#endif
