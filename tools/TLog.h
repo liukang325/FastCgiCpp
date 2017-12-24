@@ -19,13 +19,12 @@
 #pragma once
 
 #include <string>
+#include <stdio.h>
 #include <stdarg.h>
 #include    <unistd.h>
 #include    <fcntl.h>
 #include    <sys/time.h>
 #include    <sys/types.h>
-
-namespace Tool {
 
 typedef enum
 {
@@ -36,9 +35,16 @@ typedef enum
     L_DEBUG=4
 } LogLevel;
 
+
+namespace Tool {
+
 class  TLog
 {
 public:
+
+    TLog();
+    ~TLog();
+
     ///////////////////////////////////////////////////////////////
     /// 初始化log
     /// @param level 设置整体log输出级别
@@ -46,13 +52,13 @@ public:
     /// @param IP network输出目标IP地址
     /// @param port network输出目标的监听端口
     ///////////////////////////////////////////////////////////////
-    TLog(std::string level, std::string type, std::string ip = "", int port = 0);
-    ~TLog();
+    void initConfig(LogLevel level, std::string type, std::string ip = "", int port = 0);
 
-    static void logOut(LogLevel level, const char *file, const char *func, const int line, const char*fmt, ...);
+    void logOut(LogLevel level, const char *file, const char *func, const int line, const char*fmt, ...);
 
 private:
-    LogLevel analyLogLevel(std::string level);
+
+    int fileWrite(std::string message);
 
 private:
     LogLevel m_LogLevel;
@@ -63,5 +69,10 @@ private:
 
 } //namespace Tool
 
-#define gseLog(level,fmt,...)   Tool::TLog::logOut(level,__FILE__,__FUNCTION__,__LINE__,fmt"",##__VA_ARGS__)
+#include "Singleton.h"
+/// 定义单例类 ConfigDataSingle
+typedef Singleton<Tool::TLog> TLogSingle;
+#define TLOG  TLogSingle::Instance()
+
+#define DBG(level,fmt,...)   TLOG->logOut(level,__FILE__,__FUNCTION__,__LINE__,fmt"",##__VA_ARGS__)
 

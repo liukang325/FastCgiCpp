@@ -1,7 +1,7 @@
 project(Tool)
 
 # "true" or "false"
-set(CMAKE_TOOL_TEST  "false")
+set(CMAKE_TOOL_TEST  "true")
 
 # include_directories(SYSTEM "inc")
 
@@ -9,6 +9,7 @@ add_definitions(-DLIBTOOL_EXPORTS)
 add_definitions(-D_AFXDLL)
 
 set(libTool_HEAD
+    Singleton.h
     TGlobal.h
     TConf.h
     TFile.h
@@ -36,7 +37,7 @@ else()
 
     add_executable(TestTConf TConf.h TConf.cpp)
     add_executable(TestTFile TFile.h TFile.cpp)
-    add_executable(TestTLog TLog.h TLog.cpp)
+    add_executable(TestTLog Singleton.h TLog.h TLog.cpp)
     add_executable(TestTsocket TSocket.h TSocket.cpp)
     add_executable(TestTSql TSql.h TSql.cpp)
 
