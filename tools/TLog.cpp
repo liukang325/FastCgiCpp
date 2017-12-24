@@ -6,22 +6,32 @@ static char szLevelString[L_DEBUG + 1][8] =
 { "None", "Error", "Warn", "Info", "Debug"};
 
 
-Tool::TLog::TLog()
+Tool::TLog::TLog():
+    m_LogLevel(L_NONE),
+    m_strType(""),
+    m_strIP(""),
+    m_iPort(0),
+    m_fp(NULL)
 {
-
+    pthread_mutex_init(&m_fdMutex, NULL);
 }
 
 Tool::TLog::~TLog()
 {
-
+    if (NULL != m_fp)
+    {
+        fclose(m_fp);
+    }
+    pthread_mutex_destroy(&m_fdMutex);
 }
 
-void Tool::TLog::initConfig(LogLevel level, std::string type, std::string ip, int port)
+void Tool::TLog::initConfig(LogLevel level, std::string type, std::string fileName, std::string ip, int port)
 {
     m_LogLevel = level;
     m_strType = type;
     m_strIP = ip;
     m_iPort = port;
+    m_fp = fopen(fileName.c_str(), "a+");
 }
 
 void Tool::TLog::logOut(LogLevel level, const char *file, const char *func, const int line, const char *fmt, ...)
@@ -73,7 +83,13 @@ void Tool::TLog::logOut(LogLevel level, const char *file, const char *func, cons
 
 int Tool::TLog::fileWrite(std::string message)
 {
-
+    if (NULL != m_fp)
+    {
+        pthread_mutex_lock(&m_fdMutex);
+        fwrite(message.c_str(), message.length(), 1, m_fp);
+        fflush(m_fp);
+        pthread_mutex_unlock(&m_fdMutex);
+    }
 }
 
 int Tool::TLog::tcpWrite(std::string message)
@@ -90,7 +106,7 @@ int Tool::TLog::udpWrite(std::string message)
 #ifdef TEST_MAIN
 int main(int args, char* argv[])
 {
-    TLOG->initConfig(L_INFO, "console");
+    TLOG->initConfig(L_INFO, "file");
     DBG(L_INFO, "~~~~test ~~");
     DBG(L_WARN, "~~~~test ~~11");
     return 0;

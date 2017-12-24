@@ -21,10 +21,10 @@
 #include <string>
 #include <stdio.h>
 #include <stdarg.h>
-#include    <unistd.h>
-#include    <fcntl.h>
-#include    <sys/time.h>
-#include    <sys/types.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/time.h>
+#include <sys/types.h>
 
 typedef enum
 {
@@ -52,19 +52,24 @@ public:
     /// @param IP network输出目标IP地址
     /// @param port network输出目标的监听端口
     ///////////////////////////////////////////////////////////////
-    void initConfig(LogLevel level, std::string type, std::string ip = "", int port = 0);
+    void initConfig(LogLevel level, std::string type, std::string fileName = "tool.log", std::string ip = "", int port = 0);
 
     void logOut(LogLevel level, const char *file, const char *func, const int line, const char*fmt, ...);
 
 private:
 
     int fileWrite(std::string message);
+    int tcpWrite(std::string message);
+    int udpWrite(std::string message);
 
 private:
     LogLevel m_LogLevel;
     std::string m_strType;
     std::string m_strIP;
     int m_iPort;
+
+    pthread_mutex_t m_fdMutex;
+    FILE *m_fp;
 };
 
 } //namespace Tool
