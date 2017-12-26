@@ -14,13 +14,18 @@ sudo apt-get install libfcgi-dev
 **3.修改Nginx的配置文件**
 
 ```
-        location ~ \.cgi$ {
+        location / {
+             try_files $uri $uri/ /index.fcgi?$query_string;
+        }
+
+        location ~ \.fcgi$ {
             fastcgi_pass 127.0.0.1:8080;
             fastcgi_index index.fcgi;
-            fastcgi_param SCRIPT_FILENAME /$fastcgi_script_name;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
             include fastcgi_params;
         }
 ```
+重启nginx: sudo /usr/local/nginx/sbin/nginx -s reload
 
 编译测试代码：g++ -o mainTest.cgi mainTest.cpp -lfcgi 
 

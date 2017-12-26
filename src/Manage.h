@@ -21,7 +21,6 @@
 struct HttpInfo{
     std::string requestMethod;
     std::string requestURI;
-    std::string scriptStr;
     std::string queryStr;
 };
 
