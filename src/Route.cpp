@@ -11,9 +11,9 @@ Route::~Route()
 
 }
 
-void Route::addRoute(std::string requestUri, FuncHttp func)
+void Route::addRoute(std::string requestRoute, FuncHttp func)
 {
-    m_routeMap.insert(std::map<std::string , FuncHttp>::value_type(requestUri, func));
+    m_routeMap.insert(std::map<std::string , FuncHttp>::value_type(requestRoute, func));
 }
 
 void Route::exec()

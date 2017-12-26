@@ -26,7 +26,10 @@
 #include <iostream>
 #include <functional>
 
-#define routeBind(funcName, appName) std::bind(&funcName, &appName, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)
+#define routeBind(funcName, appName) std::bind(&funcName, &appName, \
+    std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)
+
+#define FunParams   std::string method, std::string url, std::string params
 
 typedef std::function<void(std::string, std::string, std::string)> FuncHttp;
 
@@ -36,7 +39,7 @@ public:
     Route();
     ~Route();
 
-    void addRoute(std::string requestUri, FuncHttp  func);
+    void addRoute(std::string requestRoute, FuncHttp  func);
     void exec();
 
     static void reponse(const char*fmt, ...);

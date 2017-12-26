@@ -25,9 +25,9 @@ public:
     CLogin();
     ~CLogin();
 
-    void login(std::string method, std::string url, std::string params);
+    void login(FunParams);
 
-    void regist(std::string method, std::string url, std::string params);
+    void regist(FunParams);
 
 private:
 
