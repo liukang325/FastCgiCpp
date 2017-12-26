@@ -24,22 +24,19 @@
 #include <unistd.h>  
 #endif  
 
-#include "Route.h"
-
-void login(std::string method, std::string url, std::string params)
-{
-    DBG(L_INFO, "~~~~method : %s,  url: %s~~ params: %s", method.c_str(), url.c_str(), params.c_str());
-
-    Route::reponse("this is login html: %s", params.c_str());
-}
+#include "CLogin.h"
 
 int main(void)  
 {  
     TLOG->initConfig(L_DEBUG, "file");
     DBG(L_DEBUG, "===========start===========");
 
+    //login module
+    CLogin appLogin;
+
     Route appRoute;
-    appRoute.addRoute("/login", login);
+    appRoute.addRoute("/login", routeBind(CLogin::login, appLogin));
+    appRoute.addRoute("/regist", routeBind(CLogin::regist, appLogin));
 
     appRoute.exec();
 

@@ -15,6 +15,7 @@
  *
  * =====================================================================================
  */
+#pragma once
 
 #include <fcgi_stdio.h>
 #include "fcgi_config.h"
@@ -25,7 +26,10 @@
 #include <iostream>
 #include <functional>
 
+#define routeBind(funcName, appName) std::bind(&funcName, &appName, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)
+
 typedef std::function<void(std::string, std::string, std::string)> FuncHttp;
+
 class  Route
 {
 public:

@@ -6,7 +6,6 @@ Route::Route()
 
 }
 
-
 Route::~Route()
 {
 
@@ -48,12 +47,12 @@ void Route::exec()
         iterMap = m_routeMap.find(requestRoute);
         if(iterMap == m_routeMap.end())
         {
-            DBG(L_INFO, "not find route: %s ", requestUri.c_str());
+            DBG(L_ERROR, "not find route: %s ", requestUri.c_str());
         }
         else
         {
             FuncHttp func = iterMap->second;
-            func(requestMethod, requestUri, requestParam);
+            func(requestMethod, requestRoute, requestParam);
         }
     }
 
