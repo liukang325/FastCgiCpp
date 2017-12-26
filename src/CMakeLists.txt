@@ -19,12 +19,12 @@ endif()
 
 set(APP_HEAD
     Route.h
-    Manage.h
+    Login.h
     )
 
 set(APP_SRC
     Route.cpp
-    Manage.cpp
+    Login.cpp
     main.cpp
     )
 

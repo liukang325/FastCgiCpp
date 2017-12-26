@@ -21,21 +21,24 @@
 #include "TLog.h"
 #include <string>
 #include <map>
+#include <vector>
 #include <iostream>
 #include <functional>
 
-
+typedef std::function<void(std::string, std::string, std::string)> FuncHttp;
 class  Route
 {
 public:
     Route();
     ~Route();
 
-    void addRoute(std::string requestUri, std::function<void(std::string, std::string)>  func);
+    void addRoute(std::string requestUri, FuncHttp  func);
     void exec();
+
+    static void reponse(const char*fmt, ...);
 
 private:
 
-    std::map<std::string, std::function<void(std::string, std::string)> > m_routeMap;
+    std::map<std::string, FuncHttp > m_routeMap;
 
 };
