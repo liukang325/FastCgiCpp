@@ -20,7 +20,7 @@
 
 #include <string>
 
-namespace Tool {
+namespace WebTool {
 
 class  TConf
 {
@@ -35,6 +35,6 @@ private:
     std::string m_configName;
 };
 
-} //namespace Tool
+} //namespace WebTool
 
 

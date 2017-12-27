@@ -36,7 +36,7 @@ typedef enum
 } LogLevel;
 
 
-namespace Tool {
+namespace WebTool {
 
 class  TLog
 {
@@ -72,11 +72,11 @@ private:
     FILE *m_fp;
 };
 
-} //namespace Tool
+} //namespace WebTool
 
 #include "Singleton.h"
 /// 定义单例类 ConfigDataSingle
-typedef Singleton<Tool::TLog> TLogSingle;
+typedef Singleton<WebTool::TLog> TLogSingle;
 #define TLOG  TLogSingle::Instance()
 
 #define DBG(level,fmt,...)   TLOG->logOut(level,__FILE__,__FUNCTION__,__LINE__,fmt"",##__VA_ARGS__)

@@ -1,12 +1,14 @@
 #include "TLog.h"
 
+namespace WebTool {
+
 #define MAX_MSG     1000
 
 static char szLevelString[L_DEBUG + 1][8] =
 { "None", "Error", "Warn", "Info", "Debug"};
 
 
-Tool::TLog::TLog():
+TLog::TLog():
     m_LogLevel(L_NONE),
     m_strType(""),
     m_strIP(""),
@@ -16,7 +18,7 @@ Tool::TLog::TLog():
     pthread_mutex_init(&m_fdMutex, NULL);
 }
 
-Tool::TLog::~TLog()
+TLog::~TLog()
 {
     if (NULL != m_fp)
     {
@@ -25,7 +27,7 @@ Tool::TLog::~TLog()
     pthread_mutex_destroy(&m_fdMutex);
 }
 
-void Tool::TLog::initConfig(LogLevel level, std::string type, std::string fileName, std::string ip, int port)
+void TLog::initConfig(LogLevel level, std::string type, std::string fileName, std::string ip, int port)
 {
     m_LogLevel = level;
     m_strType = type;
@@ -34,7 +36,7 @@ void Tool::TLog::initConfig(LogLevel level, std::string type, std::string fileNa
     m_fp = fopen(fileName.c_str(), "a+");
 }
 
-void Tool::TLog::logOut(LogLevel level, const char *file, const char *func, const int line, const char *fmt, ...)
+void TLog::logOut(LogLevel level, const char *file, const char *func, const int line, const char *fmt, ...)
 {
     if(level > m_LogLevel)
         return;
@@ -81,7 +83,7 @@ void Tool::TLog::logOut(LogLevel level, const char *file, const char *func, cons
     }
 }
 
-int Tool::TLog::fileWrite(std::string message)
+int TLog::fileWrite(std::string message)
 {
     if (NULL != m_fp)
     {
@@ -92,16 +94,17 @@ int Tool::TLog::fileWrite(std::string message)
     }
 }
 
-int Tool::TLog::tcpWrite(std::string message)
+int TLog::tcpWrite(std::string message)
 {
 
 }
 
-int Tool::TLog::udpWrite(std::string message)
+int TLog::udpWrite(std::string message)
 {
 
 }
 
+} //namespace WebTool
 
 #ifdef TEST_MAIN
 int main(int args, char* argv[])

@@ -20,18 +20,20 @@
 #include <fcgi_stdio.h>
 #include "fcgi_config.h"
 #include "TLog.h"
-#include <string>
+#include "TString.h"
 #include <map>
 #include <vector>
 #include <iostream>
 #include <functional>
 
+using namespace WebTool;
+
 #define routeBind(funcName, appName) std::bind(&funcName, &appName, \
     std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)
 
-#define FunParams   std::string method, std::string url, std::string params
+#define FunParams   TString method, TString url, TString params
 
-typedef std::function<void(std::string, std::string, std::string)> FuncHttp;
+typedef std::function<void(TString, TString, TString)> FuncHttp;
 
 class  Route
 {
@@ -39,13 +41,13 @@ public:
     Route();
     ~Route();
 
-    void addRoute(std::string requestRoute, FuncHttp  func);
+    void addRoute(TString requestRoute, FuncHttp  func);
     void exec();
 
     static void reponse(const char*fmt, ...);
 
 private:
 
-    std::map<std::string, FuncHttp > m_routeMap;
+    std::map<TString, FuncHttp > m_routeMap;
 
 };

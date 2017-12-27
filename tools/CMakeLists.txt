@@ -14,6 +14,7 @@ set(libTool_HEAD
     TLog.h
     TSocket.h
     TSql.h
+    TString.h
     )
 
 set(libTool_SRC
@@ -21,6 +22,7 @@ set(libTool_SRC
     TLog.cpp
     TSocket.cpp
     TSql.cpp
+    TString.cpp
     )
 
 if (CMAKE_TOOL_TEST STREQUAL "false")
@@ -36,5 +38,6 @@ else()
     add_executable(TestTLog Singleton.h TLog.h TLog.cpp)
     add_executable(TestTsocket TSocket.h TSocket.cpp)
     add_executable(TestTSql TSql.h TSql.cpp)
+    add_executable(TestTString TString.h TString.cpp)
 
 endif()

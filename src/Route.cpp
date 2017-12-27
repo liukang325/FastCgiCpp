@@ -11,9 +11,9 @@ Route::~Route()
 
 }
 
-void Route::addRoute(std::string requestRoute, FuncHttp func)
+void Route::addRoute(TString requestRoute, FuncHttp func)
 {
-    m_routeMap.insert(std::map<std::string , FuncHttp>::value_type(requestRoute, func));
+    m_routeMap.insert(std::map<TString , FuncHttp>::value_type(requestRoute, func));
 }
 
 void Route::exec()
@@ -21,15 +21,17 @@ void Route::exec()
     while(FCGI_Accept() >= 0)
     {
         //"GET" or "POST"
-        std::string requestMethod =  std::string(getenv("REQUEST_METHOD"));
+        TString requestMethod =  TString(getenv("REQUEST_METHOD"));
         //"/login?key=value&name=pwd"
-        std::string requestUri = std::string(getenv("REQUEST_URI"));
+        TString requestUri = TString(getenv("REQUEST_URI"));
         size_t pos = requestUri.find_first_of("?");
-        std::string requestRoute = requestUri.substr(0, pos);
-        std::string requestParam;
+        TString requestRoute = requestUri.left(pos);
+        TString requestParam;
         if("GET" == requestMethod)
         {
-            requestParam = requestUri.substr(pos + 1);
+            DBG(L_INFO, "%d, %d, %d ", requestUri.length(), pos, requestUri.length() - pos - 1);
+
+            requestParam = requestUri.right(requestUri.length() - pos - 1);
         }
         else if("POST" == requestMethod)
         {
@@ -37,13 +39,13 @@ void Route::exec()
             char *bufpost = (char* )malloc(ilen);
             memset(bufpost, 0, ilen);
             FCGI_fread(bufpost, ilen, 1, FCGI_stdin);
-            requestParam = std::string(bufpost);
+            requestParam = TString(bufpost);
             free(bufpost);
         }
 
         DBG(L_INFO, "requestRoute: %s, requestParam: %s ", requestRoute.c_str(), requestParam.c_str());
 
-        std::map<std::string , FuncHttp>::iterator iterMap;;
+        std::map<TString , FuncHttp>::iterator iterMap;;
         iterMap = m_routeMap.find(requestRoute);
         if(iterMap == m_routeMap.end())
         {

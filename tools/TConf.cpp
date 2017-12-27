@@ -18,33 +18,36 @@
 
 #include "TConf.h"
 
-Tool::TConf::TConf(std::string configName):
+namespace WebTool {
+
+TConf::TConf(std::string configName):
     m_configName(configName)
 {
 
 }
 
-Tool::TConf::~TConf()
+TConf::~TConf()
 {
 
 }
 
-std::string Tool::TConf::getConfStr(std::string group, std::string key)
+std::string TConf::getConfStr(std::string group, std::string key)
 {
 
 }
 
-void Tool::TConf::setConfStr(std::string group, std::string key, std::string value)
+void TConf::setConfStr(std::string group, std::string key, std::string value)
 {
 
 }
 
+} //namespace WebTool
 
 #ifdef TEST_MAIN
 int main(int args, char* argv[])
 {
 
-    Tool::TConf mConf("./test.conf");
+    WebTool::TConf mConf("./test.conf");
     mConf.setConfStr("[LOG]", "level", "debug");
     mConf.getConfStr("[LOG]", "level");
 
