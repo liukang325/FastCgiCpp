@@ -15,6 +15,7 @@ set(libTool_HEAD
     TSocket.h
     TSql.h
     TString.h
+    TJson.h
     )
 
 set(libTool_SRC
@@ -23,6 +24,7 @@ set(libTool_SRC
     TSocket.cpp
     TSql.cpp
     TString.cpp
+    TJson.cpp
     )
 
 if (CMAKE_TOOL_TEST STREQUAL "false")
