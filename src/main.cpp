@@ -28,7 +28,7 @@
 
 int main(void)  
 {  
-    TLOG->initConfig(L_DEBUG, "file");
+    TLOG->initConfig(L_DEBUG, "udp","","192.168.18.220", 6001);
     DBG(L_DEBUG, "===========start===========");
 
     //login module

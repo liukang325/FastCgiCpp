@@ -75,16 +75,7 @@ int TTcpSocket::sendData(std::string data)
 
 int TTcpSocket::recvData(std::string data)
 {
-//    int recvLen = -1;
-//    if(1 > m_fd || 1 > data.length())
-//        return -1;
-//    recvLen = recv(sockfd, buf, length, 0);
-//    if(-1 == recvLen)
-//    {
-//        DBG(L_ERROR, "recv error!");
-//        return -2;
-//    }
-//    return recvLen;
+
 }
 
 TUdpSocket::TUdpSocket()
@@ -123,7 +114,6 @@ int TUdpSocket::sendData(std::string data)
     int len,sendLen;
     len = sizeof(struct sockaddr_in);
     sendLen = sendto(m_fd, data.c_str(), data.length(), 0, (struct sockaddr *) &(m_udpAddr), len);
-
     if (sendLen < 0)
     {
 //        DBG(L_ERROR,"UDP send error:");

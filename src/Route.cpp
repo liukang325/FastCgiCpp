@@ -29,8 +29,6 @@ void Route::exec()
         TString requestParam;
         if("GET" == requestMethod)
         {
-            DBG(L_INFO, "%d, %d, %d ", requestUri.length(), pos, requestUri.length() - pos - 1);
-
             requestParam = requestUri.right(requestUri.length() - pos - 1);
         }
         else if("POST" == requestMethod)
@@ -42,8 +40,6 @@ void Route::exec()
             requestParam = TString(bufpost);
             free(bufpost);
         }
-
-        DBG(L_INFO, "requestRoute: %s, requestParam: %s ", requestRoute.c_str(), requestParam.c_str());
 
         std::map<TString , FuncHttp>::iterator iterMap;;
         iterMap = m_routeMap.find(requestRoute);

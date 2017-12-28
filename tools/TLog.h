@@ -25,6 +25,9 @@
 #include <fcntl.h>
 #include <sys/time.h>
 #include <sys/types.h>
+#include <iostream>
+
+#include "TSocket.h"
 
 typedef enum
 {
@@ -57,10 +60,7 @@ public:
     void logOut(LogLevel level, const char *file, const char *func, const int line, const char*fmt, ...);
 
 private:
-
     int fileWrite(std::string message);
-    int tcpWrite(std::string message);
-    int udpWrite(std::string message);
 
 private:
     LogLevel m_LogLevel;
@@ -70,6 +70,8 @@ private:
 
     pthread_mutex_t m_fdMutex;
     FILE *m_fp;
+    TTcpSocket m_tcpSocket;
+    TUdpSocket m_udpSocket;
 };
 
 } //namespace WebTool

@@ -33,7 +33,22 @@ void TLog::initConfig(LogLevel level, std::string type, std::string fileName, st
     m_strType = type;
     m_strIP = ip;
     m_iPort = port;
-    m_fp = fopen(fileName.c_str(), "a+");
+    if("file" == m_strType && fileName.length() > 0)
+    {
+        m_fp = fopen(fileName.c_str(), "a+");
+    }
+    else if("tcp" == m_strType && m_strIP.length() > 0 && m_iPort > 0)
+    {
+        int ret = m_tcpSocket.connectServer(m_strIP, m_iPort);
+        std::cout << "connectTcpServer ret = " << ret << std::endl;
+//        DBG(L_INFO, "connectTcpServer ret = %d", ret);
+    }
+    else if("udp" == m_strType  && m_strIP.length() > 0 && m_iPort > 0)
+    {
+        int ret = m_udpSocket.connectServer(m_strIP, m_iPort);
+//        DBG(L_INFO, "connectUdpServer ret = %d", ret);
+    }
+
 }
 
 void TLog::logOut(LogLevel level, const char *file, const char *func, const int line, const char *fmt, ...)
@@ -75,11 +90,11 @@ void TLog::logOut(LogLevel level, const char *file, const char *func, const int 
     }
     else if("tcp" == m_strType)
     {
-        tcpWrite(std::string(message));
+        m_tcpSocket.sendData(std::string(message));
     }
     else if("udp" == m_strType)
     {
-        udpWrite(std::string(message));
+        m_udpSocket.sendData(std::string(message));
     }
 }
 
@@ -92,16 +107,6 @@ int TLog::fileWrite(std::string message)
         fflush(m_fp);
         pthread_mutex_unlock(&m_fdMutex);
     }
-}
-
-int TLog::tcpWrite(std::string message)
-{
-
-}
-
-int TLog::udpWrite(std::string message)
-{
-
 }
 
 } //namespace WebTool
