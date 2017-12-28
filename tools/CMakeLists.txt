@@ -5,6 +5,9 @@ set(CMAKE_TOOL_TEST  "false")
 
 include_directories(SYSTEM ".")
 
+include_directories("/usr/include/mysql")
+
+
 add_definitions(-DLIBTOOL_EXPORTS)
 add_definitions(-D_AFXDLL)
 

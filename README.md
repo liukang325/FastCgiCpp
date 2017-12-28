@@ -32,3 +32,7 @@ sudo apt-get install libfcgi-dev
 编译生成mainTest.cgi后，运行spawn
 
 spawn-fcgi -a 127.0.0.1 -p 8080 -f ./mainTest.cgi
+
+SQL依赖库安装
+sudo apt-get install libsqlite3-dev
+sudo apt-get install libmysqlclient-dev

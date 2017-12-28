@@ -1,4 +1,9 @@
 
+#include "TSql.h"
+
+namespace WebTool {
+
+} //namespace WebTool
 
 
 #ifdef TEST_MAIN

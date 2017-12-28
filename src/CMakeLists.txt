@@ -29,7 +29,7 @@ set(APP_SRC
     )
 
 # 生成的可执行文件的路径
-set(EXECUTABLE_OUTPUT_PATH  ${PROJECT_BINARY_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH  ${CMAKE_INSTALL_PREFIX})
 
 # 将所有源程序编译为可执行文件
 add_executable(${PROJECT}
