@@ -19,24 +19,33 @@
 #pragma once
 
 #include <string>
+#include "Json/include/json.h"
 
 namespace WebTool {
 
 class  TJson
 {
 public:
-    TJson();
+    TJson(std::string sJson);
     ~TJson();
 
-    std::string getStr(std::string sJson, std::string sKey);
-    std::string getObj(std::string sJson, std::string sKey);
-    int getInt(std::string sJson, std::string sKey);
+    bool isValid();
 
-    void setStr(std::string sJson, std::string sKey, std::string sValue);
-    void setObj(std::string sJson, std::string sKey, std::string sValue);
-    void setInt(std::string sJson, std::string sKey, int iValue);
+    std::string getStr(const std::string sKey);
+    std::string getObj(const std::string sKey);
+    int getInt(const std::string sKey);
+
+    void setStr(const std::string sKey, std::string sValue);
+    void setObj(const std::string sKey, std::string sValue);
+    void setInt(const std::string sKey, int iValue);
 
 private:
+
+    std::string m_sJson;
+
+    Json::Reader m_reader;
+    Json::Value m_root;
+    bool m_bValid;
 
 };
 

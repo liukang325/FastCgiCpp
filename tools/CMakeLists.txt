@@ -1,14 +1,35 @@
 project(Tool)
 
 # "true" or "false"
-set(CMAKE_TOOL_TEST  "false")
+set(CMAKE_TOOL_TEST  "true")
 
-# include_directories(SYSTEM "inc")
+include_directories(SYSTEM ".")
 
 add_definitions(-DLIBTOOL_EXPORTS)
 add_definitions(-D_AFXDLL)
 
+set(jsoncpp_HEAD
+    Json/include/assertions.h
+    Json/include/autolink.h
+    Json/include/config.h
+    Json/include/features.h
+    Json/include/forwards.h
+    Json/include/json.h
+    Json/include/reader.h
+    Json/include/value.h
+    Json/include/version.h
+    Json/include/writer.h
+    Json/include/json_tool.h
+    )
+set(jsoncpp_SRC
+    Json/src/json_reader.cpp
+    Json/src/json_value.cpp
+    Json/src/json_valueiterator.inl
+    Json/src/json_writer.cpp
+    )
+
 set(libTool_HEAD
+    ${jsoncpp_HEAD}
     Singleton.h
     TConf.h
     TLog.h
@@ -19,6 +40,7 @@ set(libTool_HEAD
     )
 
 set(libTool_SRC
+    ${jsoncpp_SRC}
     TConf.cpp
     TLog.cpp
     TSocket.cpp
@@ -41,5 +63,7 @@ else()
     add_executable(TestTsocket TSocket.h TSocket.cpp)
     add_executable(TestTSql TSql.h TSql.cpp)
     add_executable(TestTString TString.h TString.cpp)
+    add_executable(TestTJson TJson.h TJson.cpp ${jsoncpp_HEAD} ${jsoncpp_SRC})
+
 
 endif()
