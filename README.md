@@ -33,6 +33,9 @@ sudo apt-get install libfcgi-dev
 
 spawn-fcgi -a 127.0.0.1 -p 8080 -f ./mainTest.cgi
 
-SQL依赖库安装
-sudo apt-get install libsqlite3-dev
-sudo apt-get install libmysqlclient-dev
+
+**SQL依赖库安装**
+
+sqlite3: sudo apt-get install libsqlite3-dev
+
+mysql:  sudo apt-get install libmysqlclient-dev
