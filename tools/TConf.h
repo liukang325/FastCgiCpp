@@ -19,6 +19,7 @@
 #pragma once
 
 #include <string>
+#include <map>
 
 namespace WebTool {
 
@@ -29,10 +30,22 @@ public:
     ~TConf();
 
     std::string getConfStr(std::string group, std::string key);
-    void setConfStr(std::string group, std::string key, std::string value);
+    bool setConfStr(const std::string group, const std::string key, const std::string value);
 
 private:
+
+    void readConfig();
+    void saveConfig();
+
+    typedef std::map<std::string, std::string> KeyValueDef;
+    typedef std::map<std::string, KeyValueDef> GroupDef;
+
     std::string m_configName;
+
+    GroupDef m_groupConfig;
+
+
+
 };
 
 } //namespace WebTool

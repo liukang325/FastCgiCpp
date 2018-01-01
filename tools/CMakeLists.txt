@@ -1,7 +1,7 @@
 project(Tool)
 
 # "true" or "false"
-set(CMAKE_TOOL_TEST  "false")
+set(CMAKE_TOOL_TEST  "true")
 
 include_directories(SYSTEM ".")
 
@@ -62,9 +62,9 @@ else()
     add_definitions(-DTEST_MAIN)
 
     add_executable(TestTConf TConf.h TConf.cpp)
-    add_executable(TestTLog Singleton.h TLog.h TLog.cpp)
-    add_executable(TestTsocket TSocket.h TSocket.cpp)
-    add_executable(TestTSql TSql.h TSql.cpp)
+    add_executable(TestTLog Singleton.h TLog.h TLog.cpp TSocket.h TSocket.cpp)
+#    add_executable(TestTsocket TSocket.h TSocket.cpp)
+#    add_executable(TestTSql TSql.h TSql.cpp)
     add_executable(TestTString TString.h TString.cpp)
     add_executable(TestTJson TJson.h TJson.cpp ${jsoncpp_HEAD} ${jsoncpp_SRC})
 
