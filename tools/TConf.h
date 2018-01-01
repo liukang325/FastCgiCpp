@@ -29,11 +29,15 @@ public:
     TConf(std::string configName);
     ~TConf();
 
-    std::string getConfStr(std::string group, std::string key);
+    std::string getConfStr(const std::string group, const std::string key, const std::string valueDefault = "");
     bool setConfStr(const std::string group, const std::string key, const std::string value);
+
+    void delKey(const std::string group, const std::string key);
+    void delGroup(const std::string group);
 
 private:
 
+    ///
     void readConfig();
     void saveConfig();
 

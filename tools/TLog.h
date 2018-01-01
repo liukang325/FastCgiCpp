@@ -83,3 +83,5 @@ typedef Singleton<WebTool::TLog> TLogSingle;
 
 #define DBG(level,fmt,...)   TLOG->logOut(level,__FILE__,__FUNCTION__,__LINE__,fmt"",##__VA_ARGS__)
 
+#define CDBG    std::cout << "\n[CDBG] " << __FILE__ << " " << __FUNCTION__ << "():"<< __LINE__ << " "
+

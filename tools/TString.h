@@ -46,6 +46,8 @@ public:
     /// 根据分割符分割字符串
     std::vector<TString> split( const std::string &tag) const;
 
+    int toInt() const;
+
 };
 
 } //namespace WebTool

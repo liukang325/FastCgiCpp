@@ -1,7 +1,7 @@
 project(Tool)
 
 # "true" or "false"
-set(CMAKE_TOOL_TEST  "true")
+set(CMAKE_TOOL_TEST  "false")
 
 include_directories(SYSTEM ".")
 

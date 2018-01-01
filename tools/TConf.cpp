@@ -37,24 +37,24 @@ TConf::~TConf()
 
 }
 
-std::string TConf::getConfStr(std::string group, std::string key)
+std::string TConf::getConfStr(const std::string group, const std::string key, const std::string valueDefault)
 {
     readConfig();
 
     if (0 == key.length())
-        return "";
+        return valueDefault;
     GroupDef::iterator iterGroup = m_groupConfig.find(group);
     if(iterGroup == m_groupConfig.end())
     {
         //not find
-        return "";
+        return valueDefault;
     }
     KeyValueDef valuelist = iterGroup->second;
     KeyValueDef::iterator iterValue = valuelist.find(key);
     if(iterValue == valuelist.end())
     {
         //not find
-        return "";
+        return valueDefault;
     }
     return iterValue->second;
 }
@@ -67,6 +67,33 @@ bool TConf::setConfStr(const std::string group, const std::string key, const std
         return false;
     m_groupConfig[group][key] = value;
 
+    saveConfig();
+}
+
+void TConf::delKey(const std::string group, const std::string key)
+{
+    readConfig();
+    GroupDef::iterator iterGroup = m_groupConfig.find(group);
+    if(iterGroup != m_groupConfig.end())
+    {
+        KeyValueDef valuelist = iterGroup->second;
+        KeyValueDef::iterator iterKey = valuelist.find(key);
+        if(iterKey != valuelist.end())
+        {
+            valuelist.erase(iterKey);
+        }
+    }
+    saveConfig();
+}
+
+void TConf::delGroup(const std::string group)
+{
+    readConfig();
+    GroupDef::iterator iterGroup = m_groupConfig.find(group);
+    if(iterGroup != m_groupConfig.end())
+    {
+        m_groupConfig.erase(iterGroup);
+    }
     saveConfig();
 }
 

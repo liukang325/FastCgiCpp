@@ -1,5 +1,6 @@
 #include "TString.h"
 #include "TLog.h"
+#include<stdlib.h>
 
 namespace WebTool {
 
@@ -78,6 +79,13 @@ std::vector<TString> TString::split(const std::string &tag) const
         }
     }
     return retVec;
+}
+
+int TString::toInt() const
+{
+    int ret = atoi(this->c_str());
+
+    return ret;
 }
 
 }//namespace WebTool

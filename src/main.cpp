@@ -26,9 +26,20 @@
 
 #include "CLogin.h"
 
+#include "TConf.h"
+TConf gConf("CgiCpp.conf");
+
 int main(void)  
 {  
-    TLOG->initConfig(L_DEBUG, "udp","","192.168.18.220", 6001);
+    TString type = gConf.getConfStr("[LOG]", "type", "file");
+    TString fileName = gConf.getConfStr("[LOG]", "fileName", "CgiCpp.log");
+    TString ip = gConf.getConfStr("[LOG]", "ip", "127.0.0.1");
+    TString port = gConf.getConfStr("[LOG]", "port", "9090");
+//    CDBG << type;
+//    CDBG << fileName;
+//    CDBG << ip;
+//    CDBG << port;
+    TLOG->initConfig(L_DEBUG, type, fileName,ip, port.toInt());
     DBG(L_DEBUG, "===========start===========");
 
     //login module
