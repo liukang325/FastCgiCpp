@@ -27,6 +27,9 @@ sudo apt-get install libfcgi-dev
 ```
 重启nginx: sudo /usr/local/nginx/sbin/nginx -s reload
 
+
+**4.测试代码编辑检查是否配置成功**
+
 编译测试代码：g++ -o mainTest.cgi mainTest.cpp -lfcgi 
 
 编译生成mainTest.cgi后，运行spawn
@@ -34,8 +37,25 @@ sudo apt-get install libfcgi-dev
 spawn-fcgi -a 127.0.0.1 -p 8080 -f ./mainTest.cgi
 
 
-**SQL依赖库安装**
+**5.SQL依赖库安装**
 
 sqlite3: sudo apt-get install libsqlite3-dev
 
 mysql:  sudo apt-get install libmysqlclient-dev
+
+
+**6.编译**
+
+创建 FastCgiCpp-build 文件夹，与FastCgiCpp同级目录
+
+```
+cd FastCgiCpp-build
+cmake ../FastCgiCpp
+make
+```
+
+在"执行CMake"这一步的参数中填入-DCMAKE_BUILD_TYPE=Debug 可以进行程序调试
+
+在FastCgiCpp-build/bin目录下有生成的CgiCpp
+
+spawn-fcgi -a 127.0.0.1 -p 8080 -f ./CgiCpp
