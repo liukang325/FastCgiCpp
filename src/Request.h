@@ -20,15 +20,19 @@ public:
     void setMethod(TString str);
     void setUrl(TString str);
     void setParams(TString str);
+    void setCookie(TString str);
+
     TString getMethod();
     TString getUrl();
     TString getParams();
+    TString getCookie();
 
 private:
 
     TString m_method;
     TString m_url;
     TString m_params;
+    TString m_cookie;
 
 };
 

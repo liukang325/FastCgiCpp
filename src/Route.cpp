@@ -40,7 +40,6 @@ void Route::exec()
             requestParam = TString(bufpost);
             free(bufpost);
         }
-        DBG(L_INFO, "cookie: %s", getenv("HTTP_COOKIE"));
 
         std::map<TString , FuncHttp>::iterator iterMap;;
         iterMap = m_routeMap.find(requestRoute);
@@ -55,6 +54,7 @@ void Route::exec()
             req.setMethod(requestMethod);
             req.setUrl(requestRoute);
             req.setParams(requestParam);
+            req.setCookie(getenv("HTTP_COOKIE"));
             func(req);
         }
     }

@@ -25,6 +25,11 @@ void Request::setParams(TString str)
     m_params = str;
 }
 
+void Request::setCookie(TString str)
+{
+    m_cookie = str;
+}
+
 TString Request::getMethod()
 {
     return m_method;
@@ -40,7 +45,12 @@ TString Request::getParams()
     return m_params;
 }
 
+TString Request::getCookie()
+{
+    return m_cookie;
+}
 
+//////////////////////////////////////////////////////
 Response::Response():
     m_contentType("text/html")
 {

@@ -13,10 +13,11 @@ CLogin::~CLogin()
 // /login
 void CLogin::login(Request req)
 {
-    DBG(L_DEBUG, "method : %s,  url: %s,  params: %s",
+    DBG(L_DEBUG, "method : %s,  url: %s,  params: %s, cookie: %s",
         req.getMethod().c_str(),
         req.getUrl().c_str(),
-        req.getParams().c_str());
+        req.getParams().c_str(),
+        req.getCookie().c_str());
 
     if("GET" == req.getMethod())
     {
@@ -35,10 +36,12 @@ void CLogin::login(Request req)
 // /regist
 void CLogin::regist(Request req)
 {
-    DBG(L_DEBUG, "method : %s,  url: %s,  params: %s",
+    DBG(L_DEBUG, "method : %s,  url: %s,  params: %s, cookie: %s",
         req.getMethod().c_str(),
         req.getUrl().c_str(),
-        req.getParams().c_str());
+        req.getParams().c_str(),
+        req.getCookie().c_str());
+
     if("GET" == req.getMethod())
     {
         Response res;
