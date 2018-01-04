@@ -25,12 +25,9 @@
 
 using namespace WebTool;
 
-#define routeBind(funcName, appName) std::bind(&funcName, &appName, \
-    std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)
+#define routeBind(funcName, appName) std::bind(&funcName, &appName, std::placeholders::_1)
 
-#define FunParams   TString method, TString url, TString params
-
-typedef std::function<void(TString, TString, TString)> FuncHttp;
+typedef std::function<void(Request)> FuncHttp;
 
 class  Route
 {

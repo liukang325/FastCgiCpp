@@ -51,7 +51,11 @@ void Route::exec()
         else
         {
             FuncHttp func = iterMap->second;
-            func(requestMethod, requestRoute, requestParam);
+            Request req;
+            req.setMethod(requestMethod);
+            req.setUrl(requestRoute);
+            req.setParams(requestParam);
+            func(req);
         }
     }
 

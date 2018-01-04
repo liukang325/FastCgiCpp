@@ -17,8 +17,18 @@ public:
     Request();
     ~Request();
 
+    void setMethod(TString str);
+    void setUrl(TString str);
+    void setParams(TString str);
+    TString getMethod();
+    TString getUrl();
+    TString getParams();
+
 private:
 
+    TString m_method;
+    TString m_url;
+    TString m_params;
 
 };
 
