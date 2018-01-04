@@ -40,6 +40,7 @@ void Route::exec()
             requestParam = TString(bufpost);
             free(bufpost);
         }
+        DBG(L_INFO, "cookie: %s", getenv("HTTP_COOKIE"));
 
         std::map<TString , FuncHttp>::iterator iterMap;;
         iterMap = m_routeMap.find(requestRoute);
@@ -54,17 +55,4 @@ void Route::exec()
         }
     }
 
-}
-
-void Route::reponse(const char*fmt, ...)
-{
-    char msg[10240]={0};
-    if(NULL != fmt)
-    {
-        va_list ap;
-        va_start(ap, fmt);
-        vsnprintf(msg, sizeof(msg), fmt, ap);
-        va_end(ap);
-    }
-    FCGI_printf("Content-type: text/html\r\n\r\n%s", msg);
 }

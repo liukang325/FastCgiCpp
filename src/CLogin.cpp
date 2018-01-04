@@ -17,7 +17,11 @@ void CLogin::login(FunParams)
 
     if("GET" == method)
     {
-        Route::reponse("this is login html: %s", params.c_str());
+        Response res;
+        res.setSetCookie("lk=cookie");
+        TString str;
+        str.sprintf("this is login html: %s", params.c_str());
+        res.responseStr(str);
     }
     else if("POST" == method)
     {
@@ -32,7 +36,11 @@ void CLogin::regist(FunParams)
 
     if("GET" == method)
     {
-        Route::reponse("this is regist html: %s", params.c_str());
+        Response res;
+        res.setSetCookie("lk=cookie");
+        TString str;
+        str.sprintf("this is regist html: %s", params.c_str());
+        res.responseStr(str);
     }
     else if("POST" == method)
     {

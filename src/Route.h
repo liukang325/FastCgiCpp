@@ -17,10 +17,7 @@
  */
 #pragma once
 
-#include <fcgi_stdio.h>
-#include "fcgi_config.h"
-#include "TLog.h"
-#include "TString.h"
+#include "Request.h"
 #include <map>
 #include <vector>
 #include <iostream>
@@ -43,8 +40,6 @@ public:
 
     void addRoute(TString requestRoute, FuncHttp  func);
     void exec();
-
-    static void reponse(const char*fmt, ...);
 
 private:
 

@@ -88,6 +88,34 @@ int TString::toInt() const
     return ret;
 }
 
+std::string va_sprintf( va_list ap, const std::string &format ) {
+    int strlen = 256;
+    char *buf = new char[strlen];
+    memset( buf, 0, strlen );
+
+    int size = vsnprintf( buf, strlen, format.c_str(), ap );
+    if ( size >= strlen ) {
+        delete[] buf;
+        buf = NULL;
+        buf = new char[size+1];
+        memset( buf, 0, size+1 );
+        vsnprintf( buf, size+1, format.c_str(), ap );
+    }
+
+    std::string result = buf;
+    delete[] buf;
+    buf = NULL;
+    return result;
+}
+bool TString::sprintf( const char *format, ... )
+{
+    va_list ap;
+    va_start(ap, format);
+    *this = va_sprintf(ap, format);
+    va_end(ap);
+    return true;
+}
+
 }//namespace WebTool
 
 #ifdef TEST_MAIN

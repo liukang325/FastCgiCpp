@@ -48,6 +48,8 @@ public:
 
     int toInt() const;
 
+    bool sprintf( const char *format, ... );
+
 };
 
 } //namespace WebTool
