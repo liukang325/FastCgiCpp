@@ -15,6 +15,8 @@ sudo apt-get install libfcgi-dev
 
 ```
         location / {
+	root   html;
+	index index.fcgi;
              try_files $uri $uri/ /index.fcgi?$query_string;
         }
 
@@ -56,6 +58,11 @@ make
 
 在"执行CMake"这一步的参数中填入-DCMAKE_BUILD_TYPE=Debug 可以进行程序调试
 
-在FastCgiCpp-build/bin目录下有生成的CgiCpp
+在/usr/local/nginx/html/目录下有生成的index.fcgi
 
-spawn-fcgi -a 127.0.0.1 -p 8080 -f ./CgiCpp
+(CMakeLists.txt 中有 set(CMAKE_INSTALL_PREFIX   /usr/local/nginx/html/))
+
+```
+cd /usr/local/nginx/html/
+spawn-fcgi -a 127.0.0.1 -p 8080 -f ./index.fcgi
+```

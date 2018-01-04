@@ -46,6 +46,7 @@ int main(void)
     CLogin appLogin;
 
     Route appRoute;
+    appRoute.addRoute("/", routeBind(CLogin::login, appLogin));
     appRoute.addRoute("/login", routeBind(CLogin::login, appLogin));
     appRoute.addRoute("/regist", routeBind(CLogin::regist, appLogin));
 

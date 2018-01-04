@@ -1,11 +1,12 @@
 cmake_minimum_required(VERSION 2.8.0)
 
 #project name
-set (PROJECT  CgiCpp)
+set (PROJECT  index.fcgi)
 
 project (${PROJECT})
 
-set(CMAKE_INSTALL_PREFIX   ${PROJECT_BINARY_DIR}/bin)
+#set(CMAKE_INSTALL_PREFIX   ${PROJECT_BINARY_DIR}/bin)
+set(CMAKE_INSTALL_PREFIX   /usr/local/nginx/html/)
 
 #增加需要文件夹
 ADD_SUBDIRECTORY(tools)
