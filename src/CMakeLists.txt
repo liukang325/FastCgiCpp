@@ -40,6 +40,7 @@ add_executable(${PROJECT}
 
 target_link_libraries(${PROJECT}
         Tool
+        pthread
         fcgi)
 
 

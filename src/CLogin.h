@@ -25,9 +25,9 @@ public:
     CLogin();
     ~CLogin();
 
-    void login(Request req);
+    Response login(Request req);
 
-    void regist(Request req);
+    Response regist(Request req);
 
 private:
 

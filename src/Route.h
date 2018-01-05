@@ -22,12 +22,20 @@
 #include <vector>
 #include <iostream>
 #include <functional>
+#include <pthread.h>
 
 using namespace WebTool;
 
 #define routeBind(funcName, appName) std::bind(&funcName, &appName, std::placeholders::_1)
 
-typedef std::function<void(Request)> FuncHttp;
+typedef std::function<Response(Request)> FuncHttp;
+
+class Route;
+
+struct threadStruct{
+    Route* pthis;
+    int threadID;
+};
 
 class  Route
 {
@@ -37,6 +45,17 @@ public:
 
     void addRoute(TString requestRoute, FuncHttp  func);
     void exec();
+
+private:
+
+    //处理消息的线程函数
+    static inline void *pthreadTask(void *p)
+    {
+        threadStruct* data = (threadStruct*)p;
+        (static_cast<Route*>(data->pthis))->processMessage(data->threadID);
+        return NULL;
+    }
+    void processMessage(int threadID);
 
 private:
 

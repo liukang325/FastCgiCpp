@@ -22,6 +22,7 @@ public:
     void setParams(TString str);
     void setCookie(TString str);
 
+
     TString getMethod();
     TString getUrl();
     TString getParams();
@@ -34,6 +35,7 @@ private:
     TString m_params;
     TString m_cookie;
 
+
 };
 
 
@@ -45,12 +47,17 @@ public:
 
     void setContentType(const TString str);
     void setSetCookie(const TString str);
-    void responseStr(const TString str);
+
+    void setResData(TString str);
+
+    TString Out();
 
 private:
 
     TString m_contentType;
     TString m_setCookie;
+
+    TString m_resData;
 
 
 };

@@ -72,12 +72,18 @@ void Response::setSetCookie(const TString str)
     m_setCookie = str;
 }
 
-void Response::responseStr(const TString str)
+void Response::setResData(TString str)
+{
+    m_resData = str;
+}
+
+TString Response::Out()
 {
     TString retStr;
     retStr += "Content-type: " + m_contentType + "\r\n";
     retStr += "Set-Cookie: " + m_setCookie + "\r\n";
     retStr += "\r\n";
-    retStr += str;
-    FCGI_printf(retStr.c_str());
+    retStr += m_resData;
+    return retStr;
+
 }

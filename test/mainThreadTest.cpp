@@ -35,23 +35,22 @@ static int counts[THREAD_COUNT];
 
 static void *pthread_func(void *a)
 {
-    int threadNum = (int)(a);
+    int threadID = (int)(a);
+    pid_t pid = getpid();
     int rc;
     FCGX_Request request;
     FCGX_InitRequest(&request, 0, 0);
     for (;;)
     {
+        static pthread_mutex_t accept_mutex = PTHREAD_MUTEX_INITIALIZER;
+        static pthread_mutex_t counts_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+        pthread_mutex_lock(&accept_mutex);
         rc = FCGX_Accept_r(&request);
+        pthread_mutex_unlock(&accept_mutex);
 
         if (rc < 0)
-            continue;
-//        FCGX_FPrintF(request.out,"Content-type: text/html\r\n\r\n" \
-//            "<html><head><title>Test</title></head>" \
-//            "<body>%s %d " \
-//            "<br> QUERY_STRING: %s " \
-//            "</body></html>",
-//            "Hello World Thread FCGI", threadNum,
-//            FCGX_GetParam("QUERY_STRING", request.envp));
+            break;
 
         std::string strRetData;
         strRetData += "Hello World Thread FCGI~~~ ";
@@ -130,6 +129,12 @@ static void *pthread_func(void *a)
         FCGX_PutS(strRetData.c_str(), request.out);
 
 //        sleep(2);
+
+        pthread_mutex_lock(&counts_mutex);
+        ++counts[threadID];
+        for (int i = 0; i < THREAD_COUNT; i++)
+            FCGX_FPrintF(request.out, "<br>counts: %5d , PID: %d, threadID: %d" , counts[i], pid, threadID);
+        pthread_mutex_unlock(&counts_mutex);
         FCGX_Finish_r(&request);
     }
     return NULL;
@@ -137,12 +142,11 @@ static void *pthread_func(void *a)
 
 int main(void)
 {
-    int i;
     pthread_t id[THREAD_COUNT];
 
     FCGX_Init();
 
-    for (i = 1; i < THREAD_COUNT; i++)
+    for (int i = 1; i < THREAD_COUNT; i++)
         pthread_create(&id[i], NULL, pthread_func, (void*)i);
 
     pthread_func(0);
