@@ -8,9 +8,9 @@
  *        Version:  1.0
  *        Created:  2017年12月12日 15时47分06秒
  *       Revision:  none
- *       Compiler:  gcc
+ *       Compiler:  g++ -o mainTest.cgi mainTest.cpp -lfcgi
  *
- *         Author:  YOUR NAME (), 
+ *         Author:  liukang
  *        Company:  
  *
  * =====================================================================================

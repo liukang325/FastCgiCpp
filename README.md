@@ -15,8 +15,8 @@ sudo apt-get install libfcgi-dev
 
 ```
         location / {
-	root   html;
-	index index.fcgi;
+             root   html;
+             index index.fcgi;
              try_files $uri $uri/ /index.fcgi?$query_string;
         }
 
@@ -32,11 +32,14 @@ sudo apt-get install libfcgi-dev
 
 **4.测试代码编辑检查是否配置成功**
 
-编译测试代码：g++ -o mainTest.cgi mainTest.cpp -lfcgi 
 
-编译生成mainTest.cgi后，运行spawn
+编译单线程测试代码：g++ -o mainTest.cgi mainTest.cpp -lfcgi 
 
-spawn-fcgi -a 127.0.0.1 -p 8080 -f ./mainTest.cgi
+编译生成mainTest.cgi后，运行spawn : spawn-fcgi -a 127.0.0.1 -p 8080 -f ./mainTest.cgi
+
+编译多线程测试代码：g++ -o mainThreadTest.cgi mainThreadTest.cpp -lfcgi -lpthread
+
+编译生成mainTest.cgi后，运行spawn : spawn-fcgi -a 127.0.0.1 -p 8080 -f ./mainThreadTest.cgi
 
 
 **5.SQL依赖库安装**
