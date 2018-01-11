@@ -116,6 +116,64 @@ bool TString::sprintf( const char *format, ... )
     return true;
 }
 
+int TString::replace(const std::string &oldstr, const std::string &newstr)
+{
+    size_t pos = 0;
+    if(oldstr != "" && (pos = this->find(oldstr)) != npos)
+    {
+        std::string::replace( pos, oldstr.length(), newstr );
+        return 1;
+    }
+    return 0;
+}
+
+int TString::replaceAll(const std::string &oldstr, const std::string &newstr)
+{
+    if("" == oldstr)
+        return 0;
+
+    int i = 0;
+    size_t pos = 0;
+    size_t curpos = 0;
+    while ((pos = this->find(oldstr,curpos)) != npos ) {
+        std::string::replace( pos, oldstr.length(), newstr );
+        curpos = pos + newstr.length();
+        ++i;
+    }
+    return i;
+}
+
+void TString::toUpper()
+{
+    for( size_t i = 0; i < this->length(); i++ )
+        (*this)[i] = toupper( (*this)[i] );
+}
+
+void TString::toLower()
+{
+    for( size_t i = 0; i < this->length(); i++ )
+        (*this)[i] = tolower( (*this)[i] );
+}
+
+bool TString::loadFile(const std::string &filename)
+{
+    FILE *fp = fopen( filename.c_str(), "rb" );
+    if ( fp == NULL ) return false;
+
+    // read file size
+    fseek( fp, 0, SEEK_END );
+    int bufsize = ftell( fp );
+    rewind( fp );
+
+    char *buf = new char[bufsize+1];
+    memset( buf, 0, bufsize+1 );
+    fread( buf, 1, bufsize, fp );
+    fclose( fp );
+    *this = std::string( buf, bufsize );
+    delete[] buf;
+    return true;
+}
+
 }//namespace WebTool
 
 #ifdef TEST_MAIN

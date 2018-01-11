@@ -50,6 +50,19 @@ public:
 
     bool sprintf( const char *format, ... );
 
+    /// 替换
+    int replace(const std::string &oldstr, const std::string &newstr);
+    /// 全文替换
+    int replaceAll(const std::string &oldstr, const std::string &newstr);
+
+    /// 转换为大写字母
+    void toUpper();
+    /// 转换为小写字母
+    void toLower();
+
+    /// 读取文件到字符串
+    bool loadFile( const std::string &filename );
+
 };
 
 } //namespace WebTool
