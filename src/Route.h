@@ -30,6 +30,8 @@ using namespace WebTool;
 
 typedef std::function<Response(Request)> FuncHttp;
 
+#define MULTI_THREAD
+
 class Route;
 
 struct threadStruct{
@@ -48,6 +50,7 @@ public:
 
 private:
 
+#ifdef MULTI_THREAD
     //处理消息的线程函数
     static inline void *pthreadTask(void *p)
     {
@@ -56,6 +59,7 @@ private:
         return NULL;
     }
     void processMessage(int threadID);
+#endif
 
 private:
 

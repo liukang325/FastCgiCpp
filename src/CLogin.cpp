@@ -30,7 +30,9 @@ Response CLogin::login(Request req)
     }
     else if("POST" == req.getMethod())
     {
-
+        Response res;
+        res.setResData("post success");
+        return res;
     }
 }
 
@@ -55,6 +57,8 @@ Response CLogin::regist(Request req)
     }
     else if("POST" == req.getMethod())
     {
-
+        Response res;
+        res.setResData("post success");
+        return res;
     }
 }

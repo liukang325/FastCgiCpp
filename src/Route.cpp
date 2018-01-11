@@ -1,7 +1,10 @@
 #include "Route.h"
 #include "memory.h"
+
+#ifdef MULTI_THREAD
 #define THREAD_COUNT 20
 static int counts[THREAD_COUNT];
+#endif
 
 Route::Route()
 {
@@ -20,7 +23,7 @@ void Route::addRoute(TString requestRoute, FuncHttp func)
 
 void Route::exec()
 {
-#if 0
+#ifdef MULTI_THREAD
     pthread_t id[THREAD_COUNT];
     FCGX_Init();
     for (int i = 1; i < THREAD_COUNT; i++)
@@ -80,6 +83,8 @@ void Route::exec()
 #endif
 }
 
+
+#ifdef MULTI_THREAD
 void Route::processMessage(int threadID)
 {
     pid_t pid = getpid();
@@ -112,11 +117,15 @@ void Route::processMessage(int threadID)
             requestUri = TString(FCGX_GetParam("REQUEST_URI", request.envp));
 
         size_t pos = requestUri.find_first_of("?");
+
         TString requestRoute = requestUri.left(pos);
         TString requestParam;
         if("GET" == requestMethod)
         {
-            requestParam = requestUri.right(requestUri.length() - pos - 1);
+            if(-1 != pos)
+            {
+                requestParam = requestUri.right(requestUri.length() - pos - 1);
+            }
         }
         else if("POST" == requestMethod)
         {
@@ -125,7 +134,8 @@ void Route::processMessage(int threadID)
                 int ilen = atoi(FCGX_GetParam("CONTENT_LENGTH", request.envp)) + 1;
                 char *bufpost = (char* )malloc(ilen);
                 memset(bufpost, 0, ilen);
-                FCGI_fread(bufpost, ilen, 1, FCGI_stdin);
+//                FCGI_fread(bufpost, ilen, 1, FCGI_stdin);
+                FCGX_GetStr(bufpost,ilen,request.in);
                 requestParam = TString(bufpost);
                 free(bufpost);
             }
@@ -156,11 +166,9 @@ void Route::processMessage(int threadID)
         //sleep(2);
 
         pthread_mutex_lock(&counts_mutex);
-        ++counts[threadID];
-        DBG(L_DEBUG, "counts: %5d , PID: %d, threadID: %d" , counts[threadID], pid, threadID);
-//        for (int i = 0; i < THREAD_COUNT; i++)
-//            DBG(L_ERROR, "counts: %5d , PID: %d, threadID: %d" , counts[i], pid, threadID);
+        DBG(L_DEBUG, "counts: %5d , PID: %d, threadID: %d" , ++counts[threadID], pid, threadID);
         pthread_mutex_unlock(&counts_mutex);
         FCGX_Finish_r(&request);
     }
 }
+#endif
