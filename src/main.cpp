@@ -27,14 +27,16 @@
 #include "CLogin.h"
 
 #include "TConf.h"
-TConf gConf("CgiCpp.conf");
+TConf gConf("fcgi.conf");
 
 int main(void)  
 {  
     TString type = gConf.getConfStr("[LOG]", "type", "file");
-    TString fileName = gConf.getConfStr("[LOG]", "fileName", "CgiCpp.log");
+    TString fileName = gConf.getConfStr("[LOG]", "fileName", "fcgi.log");
     TString ip = gConf.getConfStr("[LOG]", "ip", "127.0.0.1");
     TString port = gConf.getConfStr("[LOG]", "port", "9090");
+
+    TString threadCount = gConf.getConfStr("[ROUTE]", "threadCount", "10");
 //    CDBG << type;
 //    CDBG << fileName;
 //    CDBG << ip;
@@ -45,7 +47,7 @@ int main(void)
     //login module
     CLogin appLogin;
 
-    Route appRoute;
+    Route appRoute(threadCount.toInt());
     appRoute.addRoute("/", routeBind(CLogin::login, appLogin));
     appRoute.addRoute("/login", routeBind(CLogin::login, appLogin));
     appRoute.addRoute("/regist", routeBind(CLogin::regist, appLogin));
