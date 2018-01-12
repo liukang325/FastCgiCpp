@@ -40,7 +40,6 @@ set(libTool_HEAD
     TSql.h
     TString.h
     TJson.h
-    TCookie.h
     TEncode.h
     )
 
@@ -52,7 +51,6 @@ set(libTool_SRC
     TSql.cpp
     TString.cpp
     TJson.cpp
-    TCookie.cpp
     TEncode.cpp
     )
 

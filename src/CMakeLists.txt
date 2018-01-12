@@ -2,6 +2,7 @@ project (${PROJECT})
 
 # 指定头文件路径
 include_directories("${PROJECT_SOURCE_DIR}/../tools")
+include_directories("${PROJECT_SOURCE_DIR}/route")
 # 指定库文件路径
 link_directories("${PROJECT_BINARY_DIR}/../tools")
 
@@ -18,15 +19,17 @@ else()
 endif()
 
 set(APP_HEAD
-    Route.h
-    Request.h
-    CLogin.h
+    route/Route.h
+    route/Request.h
+    route/Cookie.h
+    apps/CLogin.h
     )
 
 set(APP_SRC
-    Route.cpp
-    Request.cpp
-    CLogin.cpp
+    route/Route.cpp
+    route/Request.cpp
+    route/Cookie.cpp
+    apps/CLogin.cpp
     main.cpp
     )
 

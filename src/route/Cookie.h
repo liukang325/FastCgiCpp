@@ -21,15 +21,15 @@
 #include <TString.h>
 #include <map>
 
-namespace WebTool {
+using namespace WebTool;
 
 typedef std::map<TString, TString> CookieList;
 
-class  TCookie
+class  Cookie
 {
 public:
-    TCookie(const TString cookieStr);
-    ~TCookie();
+    Cookie(const TString cookieStr);
+    ~Cookie();
 
     /// 取得cookie内容
     TString getCookie( const TString &name );
@@ -42,16 +42,16 @@ public:
     /// 设置cookie内容
     /// \param name cookie名字
     /// \param value cookie值
-    void setCookie( const TString &name, const TString &value) const;
+    void setCookie( const TString &name, const TString &value);
 
     /// 清除指定的cookie内容
     /// \param name cookie名字
-    inline void delCookie( const TString &name ) const;
+    inline void delCookie( const TString &name );
 
+    TString toStr();
 private:
 
-    CookieList m_cookies;
+    CookieList m_mapCookies;
 
 };
 
-} //namespace WebTool

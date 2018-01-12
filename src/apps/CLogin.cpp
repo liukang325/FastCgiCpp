@@ -10,7 +10,7 @@ CLogin::~CLogin()
 
 }
 
-// /login
+//@ /login
 Response CLogin::login(Request req)
 {
     DBG(L_DEBUG, "method : %s,  url: %s,  params: %s, cookie: %s",
@@ -36,7 +36,7 @@ Response CLogin::login(Request req)
     }
 }
 
-// /regist
+//@ /regist
 Response CLogin::regist(Request req)
 {
     DBG(L_DEBUG, "method : %s,  url: %s,  params: %s, cookie: %s",

@@ -24,7 +24,7 @@
 #include <unistd.h>  
 #endif  
 
-#include "CLogin.h"
+#include "apps/CLogin.h"
 
 #include "TConf.h"
 TConf gConf("fcgi.conf");
