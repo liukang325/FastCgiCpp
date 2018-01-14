@@ -10,7 +10,7 @@ CLogin::~CLogin()
 
 }
 
-//@ /login
+///@ /login
 Response CLogin::login(Request req)
 {
     DBG(L_DEBUG, "method : %s,  url: %s,  params: %s, cookie: %s",
@@ -19,24 +19,21 @@ Response CLogin::login(Request req)
         req.getParams().c_str(),
         req.getCookie().c_str());
 
+    Response res;
+    TString data;
     if("GET" == req.getMethod())
     {
-        Response res;
-//        res.setSetCookie("lk=cookie");
-        TString data;
-        data.sprintf("this is login html: %s", req.getParams().c_str());
+        data.sprintf("this is login test html: %s", req.getParams().c_str());
         res.setResData(data);
-        return res;
     }
     else if("POST" == req.getMethod())
     {
-        Response res;
-        res.setResData("post success");
-        return res;
+        res.setResData("post success test");
     }
+    return res;
 }
 
-//@ /regist
+///@ /regist
 Response CLogin::regist(Request req)
 {
     DBG(L_DEBUG, "method : %s,  url: %s,  params: %s, cookie: %s",
@@ -45,20 +42,16 @@ Response CLogin::regist(Request req)
         req.getParams().c_str(),
         req.getCookie().c_str());
 
+    Response res;
+    TString data;
     if("GET" == req.getMethod())
     {
-        Response res;
-//        res.setSetCookie("lk=cookie");
-        TString data;
-        data.sprintf("this is regist html: %s", req.getParams().c_str());
+        data.sprintf("this is regist test html: %s", req.getParams().c_str());
         res.setResData(data);
-
-        return res;
     }
     else if("POST" == req.getMethod())
     {
-        Response res;
-        res.setResData("post success");
-        return res;
+        res.setResData("post success test");
     }
+    return res;
 }

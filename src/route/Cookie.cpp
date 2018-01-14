@@ -64,8 +64,8 @@ TString Cookie::toSetCookieStr()
         CookieValue cookieValue = iterMap->second;
         retStr.append("Set-Cookie: " + iterMap->first + "=" + cookieValue.value +
                       "; expires=" + cookieValue.expires +
-                      "; path=" + cookieValue.expires +
-                      "; domain=" + cookieValue.expires + "\r\n");
+                      "; path=" + cookieValue.path +
+                      "; domain=" + cookieValue.domain + "\r\n");
     }
     return retStr;
 }

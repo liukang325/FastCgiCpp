@@ -1,14 +1,14 @@
 /*
  * =====================================================================================
  *
- *       Filename:  TCookie.h
+ *       Filename:  Cookie.h
  *
  *    Description:
  *
  *        Version:  1.0
- *        Created:  2017年12月14日 16时24分24秒
+ *        Created:  2018年01月14日 21时30分28秒
  *       Revision:  none
- *       Compiler:  gcc
+ *       Compiler:  g++
  *
  *         Author:  liukang
  *        Company:
@@ -25,7 +25,7 @@ using namespace WebTool;
 
 struct CookieValue{
     TString value;      ///cookie值
-    TString expires;    ///cookie有效期,GMT格式日期字符串,默认为空
+    TString expires;    ///cookie有效期,GMT格式日期字符串,默认为""
     TString path;       ///cookie路径,默认为"/"
     TString domain;     ///cookie域,默认为""
 };
@@ -59,8 +59,9 @@ public:
 
     /// 清除指定的cookie内容
     /// \param name cookie名字
-    inline void delCookie( const TString &name );
+    void delCookie( const TString &name );
 
+    /// 将存在结构体中的 cookie 转换为HTML头 Set-Cookie:
     TString toSetCookieStr();
 private:
 

@@ -6,9 +6,9 @@
  *    Description:
  *
  *        Version:  1.0
- *        Created:  2017年12月14日 16时24分24秒
+ *        Created:  2018年01月14日 20时10分28秒
  *       Revision:  none
- *       Compiler:  gcc
+ *       Compiler:  g++
  *
  *         Author:  liukang
  *        Company:
@@ -28,6 +28,7 @@ typedef std::map<TString, TString> ParamsList;
 class  Params
 {
 public:
+    /// @paramsStr eg:"key=value&name=pwd" or json
     Params(const TString paramsStr);
     ~Params();
 
@@ -44,6 +45,7 @@ private:
 
     ParamsList m_mapParams;
 
+    /// 是否为json
     bool m_bJson;
 };
 

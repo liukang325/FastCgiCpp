@@ -6,9 +6,9 @@
  *    Description:
  *
  *        Version:  1.0
- *        Created:  2017年12月14日 16时50分46秒
+ *        Created:  2018年01月14日 11时30分28秒
  *       Revision:  none
- *       Compiler:  gcc
+ *       Compiler:  g++
  *
  *         Author:  liukang,
  *        Company:

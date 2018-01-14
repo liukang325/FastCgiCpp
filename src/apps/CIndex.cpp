@@ -10,6 +10,7 @@ CIndex::~CIndex()
 
 }
 
+///@ /index
 Response CIndex::index(Request req)
 {
     DBG(L_DEBUG, "method : %s,  url: %s,  params: %s, cookie: %s",
@@ -20,10 +21,10 @@ Response CIndex::index(Request req)
 
     Params reqParams(req.getParams());
     Cookie reqCookie(req.getCookie());
+    Response res;
+    TString data;
     if("GET" == req.getMethod())
     {
-        Response res;
-        TString data;
         if("lk" == reqCookie["username"]
            && "325" == reqCookie["password"])
         {
@@ -32,21 +33,19 @@ Response CIndex::index(Request req)
         }
         else
         {
-            //no login
+            //not login
             data.loadFile(TString(HTML_PATH) + "login.html");
         }
-        reqCookie.setCookie("username", "lk22");
-        reqCookie.setCookie("password", "32522");
+//        reqCookie.setCookie("username", "lk22");
+//        reqCookie.setCookie("password", "32522");
+        reqCookie.delCookie("password");
         res.setSetCookie(reqCookie);
-
         res.setResData(data);
-        return res;
+
     }
     else if("POST" == req.getMethod())
     {
-
-        Response res;
-        TString data;
+        // sql database
         if("lk" == reqParams["username"]
                 && "325" == reqParams["password"])
         {
@@ -62,6 +61,6 @@ Response CIndex::index(Request req)
             data.loadFile(TString(HTML_PATH) + "login.html");
         }
         res.setResData(data);
-        return res;
     }
+    return res;
 }
