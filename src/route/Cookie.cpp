@@ -3,7 +3,7 @@
 
 Cookie::Cookie(const TString cookieStr)
 {
-    std::vector<TString> pairslist = cookieStr.split("; s");
+    std::vector<TString> pairslist = cookieStr.split("; ");
 
     for ( size_t i = 0; i < pairslist.size(); ++i )
     {
@@ -17,6 +17,11 @@ Cookie::Cookie(const TString cookieStr)
 
         m_mapCookies[name] = value;
     }
+}
+
+Cookie::~Cookie()
+{
+
 }
 
 TString Cookie::getCookie(const TString &name)
@@ -54,6 +59,6 @@ TString Cookie::toStr()
         retStr.append(iterMap->second);
         retStr.append("; ");
     }
-    return retStr;
+    return retStr.left(retStr.length() - 2);
 }
 

@@ -14,8 +14,11 @@ sudo apt-get install libfcgi-dev
 **3.修改Nginx的配置文件**
 
 ```
+        location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|css|js|woff|ttf|map)$ {
+            root   /home/liukang/workspace/FastCgiCpp/html;
+        }
+
         location / {
-             root  /home/liukang/workspace/FastCgiCpp/html;
              index /index.fcgi;
              try_files $uri $uri/ /index.fcgi?$query_string;
         }
@@ -39,7 +42,7 @@ sudo apt-get install libfcgi-dev
 
 编译多线程测试代码：g++ -o mainThreadTest.cgi mainThreadTest.cpp -lfcgi -lpthread
 
-编译生成mainTest.cgi后，运行spawn : spawn-fcgi -a 127.0.0.1 -p 8080 -f ./mainThreadTest.cgi
+编译生成mainThreadTest.cgi后，运行spawn : spawn-fcgi -a 127.0.0.1 -p 8080 -f ./mainThreadTest.cgi
 
 
 **5.SQL依赖库安装**
@@ -64,6 +67,6 @@ make
 在 FastCgiCpp-build/bin/ 目录下有生成的index.fcgi
 
 ```
-cd /usr/local/nginx/html/
+cd FastCgiCpp-build/bin/
 spawn-fcgi -a 127.0.0.1 -p 8080 -f ./index.fcgi
 ```

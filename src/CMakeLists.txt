@@ -22,12 +22,14 @@ set(ROUTE_HEAD
     route/Route.h
     route/Request.h
     route/Cookie.h
+    route/Params.h
     )
 
 set(ROUTE_SRC
     route/Route.cpp
     route/Request.cpp
     route/Cookie.cpp
+    route/Params.cpp
     )
 
 set(APPS_HEAD

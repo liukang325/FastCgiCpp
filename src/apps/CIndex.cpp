@@ -1,5 +1,4 @@
 #include "CIndex.h"
-#include "../main.h"
 
 CIndex::CIndex()
 {
@@ -19,12 +18,14 @@ Response CIndex::index(Request req)
         req.getParams().c_str(),
         req.getCookie().c_str());
 
+    Params reqParams(req.getParams());
+    Cookie reqCookie(req.getCookie());
     if("GET" == req.getMethod())
     {
         Response res;
-//        res.setSetCookie("lk=cookie");
         TString data;
-        if(0)
+        if("lk" == reqCookie["username"]
+           && "325" == reqCookie["password"])
         {
             //login
             data.loadFile(TString(HTML_PATH) + "index.html");
@@ -42,10 +43,15 @@ Response CIndex::index(Request req)
 
         Response res;
         TString data;
-        if(1)
+        if("lk" == reqParams["username"]
+                && "325" == reqParams["password"])
         {
             //login success
             data.loadFile(TString(HTML_PATH) + "index.html");
+            reqCookie.setCookie("username", "lk");
+            reqCookie.setCookie("password", "325");
+            DBG(L_INFO, "====%s", reqCookie.toStr().c_str());
+            res.setSetCookie(reqCookie.toStr());
         }
         else
         {

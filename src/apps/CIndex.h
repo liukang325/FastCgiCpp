@@ -17,7 +17,7 @@
  */
 #pragma once
 
-#include "../route/Route.h"
+#include "../main.h"
 
 class  CIndex
 {
