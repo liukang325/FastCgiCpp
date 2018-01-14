@@ -41,6 +41,7 @@ set(libTool_HEAD
     TString.h
     TJson.h
     TEncode.h
+    TDateTime.h
     )
 
 set(libTool_SRC
@@ -52,6 +53,7 @@ set(libTool_SRC
     TString.cpp
     TJson.cpp
     TEncode.cpp
+    TDateTime.cpp
     )
 
 if (CMAKE_TOOL_TEST STREQUAL "false")

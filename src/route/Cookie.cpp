@@ -52,7 +52,7 @@ void Cookie::setCookie(const TString &name, const TString &value,
 
 void Cookie::delCookie(const TString &name)
 {
-    this->setCookie(name, "", "Thursday,01-January-1970 08:00:01 GMT" );
+    this->setCookie(name, "", "01-01-1970 08:00:01 GMT" );
 }
 
 TString Cookie::toSetCookieStr()
