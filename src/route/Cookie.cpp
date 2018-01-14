@@ -1,5 +1,6 @@
 #include "Cookie.h"
 #include "TEncode.h"
+#include "TLog.h"
 
 Cookie::Cookie(const TString cookieStr)
 {
@@ -15,7 +16,9 @@ Cookie::Cookie(const TString cookieStr)
 //        value.replaceAll( "+", " " );
 //        value = TEncode::uriDecode(value);
 
-        m_mapCookies[name] = value;
+        CookieValue cookieValue;
+        cookieValue.value = value;
+        m_mapCookies[name] = cookieValue;
     }
 }
 
@@ -27,35 +30,43 @@ Cookie::~Cookie()
 TString Cookie::getCookie(const TString &name)
 {
     if ( name != "" && m_mapCookies.find(name) != m_mapCookies.end() )
-        return m_mapCookies[name];
+        return m_mapCookies[name].value;
     else
         return TString("");
 }
 
-void Cookie::setCookie(const TString &name, const TString &value)
+void Cookie::setCookie(const TString &name, const TString &value,
+                       const TString &expires, const TString &path,
+                       const TString &domain)
 {
     if ( name != "")
     {
-        m_mapCookies[name] = value;
+        CookieValue cookieValue;
+        cookieValue.value = value;
+        cookieValue.expires = expires;
+        cookieValue.path = path;
+        cookieValue.domain = domain;
+        m_mapCookies[name] = cookieValue;
     }
 }
 
 void Cookie::delCookie(const TString &name)
 {
-    if ( name != "" && m_mapCookies.find(name) != m_mapCookies.end() )
-    {
-        m_mapCookies.erase(m_mapCookies.find(name));
-    }
+    this->setCookie(name, "", "Thursday,01-January-1970 08:00:01 GMT" );
 }
 
-std::vector<TString> Cookie::toVecKeyValue()
+TString Cookie::toSetCookieStr()
 {
-    std::vector<TString> retVec;
+    TString retStr;
     CookieList::iterator iterMap = m_mapCookies.begin();
     for(; iterMap != m_mapCookies.end(); iterMap++)
     {
-        retVec.push_back(iterMap->first + "=" + iterMap->second);
+        CookieValue cookieValue = iterMap->second;
+        retStr.append("Set-Cookie: " + iterMap->first + "=" + cookieValue.value +
+                      "; expires=" + cookieValue.expires +
+                      "; path=" + cookieValue.expires +
+                      "; domain=" + cookieValue.expires + "\r\n");
     }
-    return retVec;
+    return retStr;
 }
 

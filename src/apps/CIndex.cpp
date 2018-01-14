@@ -35,9 +35,8 @@ Response CIndex::index(Request req)
             //no login
             data.loadFile(TString(HTML_PATH) + "login.html");
         }
-        reqCookie.setCookie("username", "lk");
-        reqCookie.setCookie("password", "325");
-        DBG(L_INFO, "====%s", reqCookie.toStr().c_str());
+        reqCookie.setCookie("username", "lk22");
+        reqCookie.setCookie("password", "32522");
         res.setSetCookie(reqCookie);
 
         res.setResData(data);
@@ -55,8 +54,7 @@ Response CIndex::index(Request req)
             data.loadFile(TString(HTML_PATH) + "index.html");
             reqCookie.setCookie("username", "lk");
             reqCookie.setCookie("password", "325");
-            DBG(L_INFO, "====%s", reqCookie.toStr().c_str());
-            res.setSetCookie(reqCookie.toStr());
+            res.setSetCookie(reqCookie);
         }
         else
         {

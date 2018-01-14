@@ -85,13 +85,11 @@ void Response::setResData(TString str)
 
 TString Response::Out()
 {
-    std::vector<TString>  vecSetCookieList = m_setCookie.toVecKeyValue();
+    TString strSetCookie = m_setCookie.toSetCookieStr();
+
     TString retStr;
     retStr += "Content-type: " + m_contentType + "\r\n";
-    for(int i = 0; i < vecSetCookieList.size(); i++)
-    {
-        retStr += "Set-Cookie: " + vecSetCookieList[i] + "\r\n";
-    }
+    retStr += strSetCookie;
     retStr += "\r\n";
 
     DBG(L_DEBUG, "%s", retStr.c_str());
