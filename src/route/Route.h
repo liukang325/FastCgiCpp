@@ -29,6 +29,7 @@ using namespace WebTool;
 #define routeBind(funcName, appName) std::bind(&funcName, &appName, std::placeholders::_1)
 
 typedef std::function<Response(Request)> FuncHttp;
+typedef std::map<TString , FuncHttp> RouteMap;
 
 class Route;
 
@@ -59,7 +60,7 @@ private:
 
 private:
 
-    std::map<TString, FuncHttp > m_routeMap;
+    RouteMap m_routeMap;
 
     int m_iThreadNum;
 };

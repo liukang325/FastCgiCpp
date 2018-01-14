@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  CLogin.h
+ *       Filename:  CIndex.h
  *
  *    Description:
  *
  *        Version:  1.0
- *        Created:  2018年01月14日 13时29分14秒
+ *        Created:  2017年12月14日 16时50分46秒
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -19,15 +19,14 @@
 
 #include "../route/Route.h"
 
-class  CLogin
+class  CIndex
 {
 public:
-    CLogin();
-    ~CLogin();
+    CIndex();
+    ~CIndex();
 
-    Response login(Request req);
+    Response index(Request req);
 
-    Response regist(Request req);
 
 private:
 

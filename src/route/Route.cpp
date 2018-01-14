@@ -18,7 +18,7 @@ Route::~Route()
 
 void Route::addRoute(TString requestRoute, FuncHttp func)
 {
-    m_routeMap.insert(std::map<TString , FuncHttp>::value_type(requestRoute, func));
+    m_routeMap.insert(RouteMap::value_type(requestRoute, func));
 }
 
 void Route::exec()
@@ -66,7 +66,7 @@ void Route::exec()
                 free(bufpost);
             }
 
-            std::map<TString , FuncHttp>::iterator iterMap;;
+            RouteMap::iterator iterMap;;
             iterMap = m_routeMap.find(requestRoute);
             if(iterMap == m_routeMap.end())
             {
@@ -143,7 +143,7 @@ void Route::processMessage(int threadID)
             }
         }
 
-        std::map<TString , FuncHttp>::iterator iterMap;;
+        RouteMap::iterator iterMap;;
         iterMap = m_routeMap.find(requestRoute);
         if(iterMap == m_routeMap.end())
         {

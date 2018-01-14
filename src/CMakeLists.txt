@@ -18,17 +18,26 @@ else()
      message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif()
 
-set(APP_HEAD
+set(ROUTE_HEAD
     route/Route.h
     route/Request.h
     route/Cookie.h
-    apps/CLogin.h
     )
 
-set(APP_SRC
+set(ROUTE_SRC
     route/Route.cpp
     route/Request.cpp
     route/Cookie.cpp
+    )
+
+set(APPS_HEAD
+    apps/CIndex.h
+    apps/CLogin.h
+    main.h
+    )
+
+set(APPS_SRC
+    apps/CIndex.cpp
     apps/CLogin.cpp
     main.cpp
     )
@@ -38,8 +47,10 @@ set(EXECUTABLE_OUTPUT_PATH  ${CMAKE_INSTALL_PREFIX})
 
 # 将所有源程序编译为可执行文件
 add_executable(${PROJECT}
-        ${APP_HEAD}
-        ${APP_SRC})
+        ${ROUTE_HEAD}
+        ${ROUTE_SRC}
+        ${APPS_HEAD}
+        ${APPS_SRC})
 
 target_link_libraries(${PROJECT}
         Tool

@@ -10,24 +10,14 @@
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author:  YOUR NAME (), 
+ *         Author:  liukang,
  *        Company:  
  *
  * =====================================================================================
  */
 
-#include <iostream>  
-#include <stdlib.h>
-#include <sys/types.h>  
-  
-#ifdef HAVE_UNISTD_H  
-#include <unistd.h>  
-#endif  
 
-#include "apps/CLogin.h"
-
-#include "TConf.h"
-TConf gConf("fcgi.conf");
+#include "main.h"
 
 int main(void)  
 {  
@@ -35,20 +25,18 @@ int main(void)
     TString fileName = gConf.getConfStr("[LOG]", "fileName", "fcgi.log");
     TString ip = gConf.getConfStr("[LOG]", "ip", "127.0.0.1");
     TString port = gConf.getConfStr("[LOG]", "port", "9090");
-
     TString threadCount = gConf.getConfStr("[ROUTE]", "threadCount", "10");
-//    CDBG << type;
-//    CDBG << fileName;
-//    CDBG << ip;
-//    CDBG << port;
-    TLOG->initConfig(L_DEBUG, type, fileName,ip, port.toInt());
-    DBG(L_DEBUG, "===========start===========");
 
-    //login module
+    TLOG->initConfig(L_DEBUG, type, fileName,ip, port.toInt());
+    DBG(L_DEBUG, "===========start=========== type:%s, fileName:%s, ip:%s, port:%s",
+        type.c_str(), fileName.c_str(), ip.c_str(), port.c_str());
+
+    CIndex appIndex;
     CLogin appLogin;
 
     Route appRoute(threadCount.toInt());
-    appRoute.addRoute("/", routeBind(CLogin::login, appLogin));
+    appRoute.addRoute("/", routeBind(CIndex::index, appIndex));
+    appRoute.addRoute("/index", routeBind(CIndex::index, appIndex));
     appRoute.addRoute("/login", routeBind(CLogin::login, appLogin));
     appRoute.addRoute("/regist", routeBind(CLogin::regist, appLogin));
 

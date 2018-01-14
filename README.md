@@ -15,8 +15,8 @@ sudo apt-get install libfcgi-dev
 
 ```
         location / {
-             root   html;
-             index index.fcgi;
+             root  /home/liukang/workspace/FastCgiCpp/html;
+             index /index.fcgi;
              try_files $uri $uri/ /index.fcgi?$query_string;
         }
 
@@ -61,9 +61,7 @@ make
 
 在"执行CMake"这一步的参数中填入-DCMAKE_BUILD_TYPE=Debug 可以进行程序调试
 
-在/usr/local/nginx/html/目录下有生成的index.fcgi
-
-(CMakeLists.txt 中有 set(CMAKE_INSTALL_PREFIX   /usr/local/nginx/html/))
+在 FastCgiCpp-build/bin/ 目录下有生成的index.fcgi
 
 ```
 cd /usr/local/nginx/html/
