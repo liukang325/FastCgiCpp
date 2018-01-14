@@ -48,17 +48,14 @@ void Cookie::delCookie(const TString &name)
     }
 }
 
-TString Cookie::toStr()
+std::vector<TString> Cookie::toVecKeyValue()
 {
-    TString retStr;
+    std::vector<TString> retVec;
     CookieList::iterator iterMap = m_mapCookies.begin();
     for(; iterMap != m_mapCookies.end(); iterMap++)
     {
-        retStr.append(iterMap->first);
-        retStr.append("=");
-        retStr.append(iterMap->second);
-        retStr.append("; ");
+        retVec.push_back(iterMap->first + "=" + iterMap->second);
     }
-    return retStr.left(retStr.length() - 2);
+    return retVec;
 }
 

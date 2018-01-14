@@ -22,7 +22,7 @@ Response CLogin::login(Request req)
     if("GET" == req.getMethod())
     {
         Response res;
-        res.setSetCookie("lk=cookie");
+//        res.setSetCookie("lk=cookie");
         TString data;
         data.sprintf("this is login html: %s", req.getParams().c_str());
         res.setResData(data);
@@ -48,7 +48,7 @@ Response CLogin::regist(Request req)
     if("GET" == req.getMethod())
     {
         Response res;
-        res.setSetCookie("lk=cookie");
+//        res.setSetCookie("lk=cookie");
         TString data;
         data.sprintf("this is regist html: %s", req.getParams().c_str());
         res.setResData(data);

@@ -8,6 +8,7 @@
 #include "fcgi_config.h"
 #include "TLog.h"
 #include "TString.h"
+#include "Cookie.h"
 
 using namespace WebTool;
 
@@ -46,7 +47,7 @@ public:
     ~Response();
 
     void setContentType(const TString str);
-    void setSetCookie(const TString str);
+    void setSetCookie(const Cookie str);
 
     void setResData(TString str);
 
@@ -54,10 +55,13 @@ public:
 
 private:
 
+    //Content-type:
     TString m_contentType;
-    TString m_setCookie;
 
+    //Set-Cookie:
+    Cookie m_setCookie;
+
+    //html txt
     TString m_resData;
-
 
 };

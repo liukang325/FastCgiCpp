@@ -49,6 +49,8 @@ public:
     inline void delCookie( const TString &name );
 
     TString toStr();
+
+    std::vector<TString> toVecKeyValue();
 private:
 
     CookieList m_mapCookies;

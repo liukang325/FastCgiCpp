@@ -35,6 +35,11 @@ Response CIndex::index(Request req)
             //no login
             data.loadFile(TString(HTML_PATH) + "login.html");
         }
+        reqCookie.setCookie("username", "lk");
+        reqCookie.setCookie("password", "325");
+        DBG(L_INFO, "====%s", reqCookie.toStr().c_str());
+        res.setSetCookie(reqCookie);
+
         res.setResData(data);
         return res;
     }

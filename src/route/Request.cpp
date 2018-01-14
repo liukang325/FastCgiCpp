@@ -1,6 +1,10 @@
 #include "Request.h"
 
-Request::Request()
+Request::Request():
+    m_method(""),
+    m_url(""),
+    m_params(""),
+    m_cookie("")
 {
 
 }
@@ -52,7 +56,9 @@ TString Request::getCookie()
 
 //////////////////////////////////////////////////////
 Response::Response():
-    m_contentType("text/html")
+    m_contentType("text/html"),
+    m_setCookie(""),
+    m_resData("")
 {
 
 }
@@ -67,9 +73,9 @@ void Response::setContentType(const TString str)
     m_contentType = str;
 }
 
-void Response::setSetCookie(const TString str)
+void Response::setSetCookie(const Cookie cookie)
 {
-    m_setCookie = str;
+    m_setCookie = cookie;
 }
 
 void Response::setResData(TString str)
@@ -79,10 +85,16 @@ void Response::setResData(TString str)
 
 TString Response::Out()
 {
+    std::vector<TString>  vecSetCookieList = m_setCookie.toVecKeyValue();
     TString retStr;
     retStr += "Content-type: " + m_contentType + "\r\n";
-    retStr += "Set-Cookie: " + m_setCookie + "\r\n";
+    for(int i = 0; i < vecSetCookieList.size(); i++)
+    {
+        retStr += "Set-Cookie: " + vecSetCookieList[i] + "\r\n";
+    }
     retStr += "\r\n";
+
+    DBG(L_DEBUG, "%s", retStr.c_str());
     retStr += m_resData;
     return retStr;
 

@@ -160,7 +160,7 @@ void Route::processMessage(int threadID)
             Response res = func(req);
             FCGX_PutS(res.Out().c_str(), request.out);
 
-            DBG(L_DEBUG, "res.Out: %s", res.Out().c_str());
+//            DBG(L_DEBUG, "res.Out: %s", res.Out().c_str());
         }
 //        sleep(2);
 //        pthread_mutex_lock(&counts_mutex);
