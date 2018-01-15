@@ -6,7 +6,7 @@ set(CMAKE_TOOL_TEST  "false")
 include_directories(SYSTEM ".")
 
 include_directories("/usr/include/mysql")
-
+include_directories("${PROJECT_SOURCE_DIR}/websocketpp")
 
 add_definitions(-DLIBTOOL_EXPORTS)
 add_definitions(-D_AFXDLL)
@@ -42,6 +42,7 @@ set(libTool_HEAD
     TJson.h
     TEncode.h
     TDateTime.h
+    TWebSocket.h
     )
 
 set(libTool_SRC
@@ -54,6 +55,7 @@ set(libTool_SRC
     TJson.cpp
     TEncode.cpp
     TDateTime.cpp
+    TWebSocket.cpp
     )
 
 if (CMAKE_TOOL_TEST STREQUAL "false")
@@ -61,6 +63,11 @@ if (CMAKE_TOOL_TEST STREQUAL "false")
     add_library(Tool SHARED
             ${libTool_HEAD}
             ${libTool_SRC})
+
+    target_link_libraries(Tool
+            boost_system
+            boost_chrono)
+
 else()
     message("=============build test true")
     add_definitions(-DTEST_MAIN)
@@ -71,6 +78,9 @@ else()
 #    add_executable(TestTSql TSql.h TSql.cpp)
     add_executable(TestTString TString.h TString.cpp)
     add_executable(TestTJson TJson.h TJson.cpp ${jsoncpp_HEAD} ${jsoncpp_SRC})
+
+    add_executable(TestTWebSocket TWebSocket.h TWebSocket.cpp )
+    target_link_libraries(TestTWebSocket boost_system boost_chrono)
 
 
 endif()

@@ -52,7 +52,14 @@ sqlite3: sudo apt-get install libsqlite3-dev
 mysql:  sudo apt-get install libmysqlclient-dev
 
 
-**6.编译**
+**6.boost依赖库安装 (websocketpp need)**
+
+sudo apt-get install libboost-dev
+
+sudo apt-get install libboost-all-dev
+
+
+**7.编译**
 
 创建 FastCgiCpp-build 文件夹，与FastCgiCpp同级目录
 
@@ -70,3 +77,14 @@ make
 cd FastCgiCpp-build/bin/
 spawn-fcgi -a 127.0.0.1 -p 8080 -f ./index.fcgi
 ```
+
+
+-------------------------
+
+
+用到的第三方开源库：
+
+jsoncpp: https://github.com/open-source-parsers/jsoncpp
+
+websocketpp: https://github.com/zaphoyd/websocketpp
+
