@@ -22,12 +22,17 @@
 
 namespace WebTool {
 
-class  TWebSocket
+class  TWebSocketServer
 {
 public:
-    TWebSocket();
-    ~TWebSocket();
+    TWebSocketServer();
+    ~TWebSocketServer();
 
+    void runServer(int port);
+private:
+
+    class TWebSocketServerImpl;
+    TWebSocketServerImpl *ptr;
 
 };
 
