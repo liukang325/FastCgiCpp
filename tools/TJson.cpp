@@ -40,19 +40,26 @@ int TJson::getInt(const std::string sKey)
     return m_root[sKey].asInt();
 }
 
-void TJson::setStr(const std::string sKey, std::string sValue)
+void TJson::setStr(std::string& obj, const std::string sKey,const std::string sValue)
 {
-
+    TJson json(obj);
+    json.m_root[sKey] = sValue;
+    obj = json.m_root.toStyledString();
 }
 
-void TJson::setObj(const std::string sKey, std::string sValue)
+void TJson::setObj(std::string& obj, const std::string sKey,const std::string sValue)
 {
-
+    TJson json(obj);
+    TJson jsonTemp(sValue);
+    json.m_root[sKey] = jsonTemp.m_root;
+    obj = json.m_root.toStyledString();
 }
 
-void TJson::setInt(const std::string sKey, int iValue)
+void TJson::setInt(std::string& obj, const std::string sKey,const int iValue)
 {
-
+    TJson json(obj);
+    json.m_root[sKey] = iValue;
+    obj = json.m_root.toStyledString();
 }
 
 
@@ -64,11 +71,16 @@ void TJson::setInt(const std::string sKey, int iValue)
 
 int main(int args, char* argv[])
 {
-    std::string str = "{\"uploadid\": \"UP000000\",\"code\": 100,\"msg\": \"\",\"files\": \"\"}";
+    std::string str = "{\"uploadid\": \"UP000000\",\"code\": 100,\"msg\": \"\",\"files\": \"\"}"; 
+    std::cout << str << std::endl;
     WebTool::TJson mJson(str);
+    std::string jsonStr;
+    mJson.setStr(jsonStr, "aaa", "aaa");
+    mJson.setInt(jsonStr, "num", 1024);
+    mJson.setObj(str, "json", jsonStr);
+    std::cout << str << std::endl;
     std::cout << mJson.getInt("code") << std::endl;
     std::cout << mJson.getStr("uploadid") << std::endl;
-
     return 0;
 }
 #endif

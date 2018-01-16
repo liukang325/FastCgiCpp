@@ -35,9 +35,9 @@ public:
     std::string getObj(const std::string sKey);
     int getInt(const std::string sKey);
 
-    void setStr(const std::string sKey, std::string sValue);
-    void setObj(const std::string sKey, std::string sValue);
-    void setInt(const std::string sKey, int iValue);
+    void setStr(std::string& obj, const std::string sKey,const std::string sValue);
+    void setObj(std::string& obj, const std::string sKey,const std::string sValue);
+    void setInt(std::string& obj, const std::string sKey,const int iValue);
 
 private:
 
