@@ -19,6 +19,7 @@
 #pragma once
 
 #include <string>
+#include <functional>
 
 namespace WebTool {
 
@@ -29,9 +30,13 @@ public:
     ~TWebSocketServer();
 
     void runServer(int port);
-private:
+    void stopServer();
+
+    void sendMsg(std::string msg);
+    void setRecvCB(std::function<void (std::string)> func);
 
     class TWebSocketServerImpl;
+private:
     TWebSocketServerImpl *ptr;
 
 };

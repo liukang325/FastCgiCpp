@@ -1,10 +1,9 @@
 #include "TWebSocket.h"
 
 #include <websocketpp/config/asio_no_tls.hpp>
-
 #include <websocketpp/server.hpp>
-
 #include <iostream>
+#include "TLog.h"
 
 typedef websocketpp::server<websocketpp::config::asio> server;
 
@@ -15,34 +14,10 @@ using websocketpp::lib::bind;
 // pull out the type of messages sent by our config
 typedef server::message_ptr message_ptr;
 
-// Define a callback to handle incoming messages
-void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg)
-{
-    std::cout << "on_message called with hdl: " << hdl.lock().get()
-              << " and message: " << msg->get_payload()
-              << std::endl;
-
-    // check for a special command to instruct the server to stop listening so
-    // it can be cleanly exited.
-    if (msg->get_payload() == "stop-listening")
-    {
-        s->stop_listening();
-        return;
-    }
-
-    try
-    {
-        s->send(hdl,  "liukang send", msg->get_opcode());
-    }
-    catch (const websocketpp::lib::error_code& e)
-    {
-        std::cout << "Echo failed because: " << e
-                  << "(" << e.message() << ")" << std::endl;
-    }
-
-}
-
 namespace WebTool {
+
+// Define a callback to handle incoming messages
+void on_message(TWebSocketServer::TWebSocketServerImpl* s, websocketpp::connection_hdl hdl, message_ptr msg);
 
 class TWebSocketServer::TWebSocketServerImpl
 {
@@ -50,6 +25,10 @@ public:
 
     TWebSocketServerImpl(){}
 
+    ~TWebSocketServerImpl()
+    {
+        stopServer();
+    }
 
     void runServer(int port)
     {
@@ -61,8 +40,7 @@ public:
         echo_server.init_asio();
 
         // Register our message handler
-        echo_server.set_message_handler(boost::bind(&on_message,
-                                             &echo_server, ::_1, ::_2));
+        echo_server.set_message_handler(bind(&on_message, this, ::_1, ::_2));
 
         // Listen on port 9002
         echo_server.listen(port);
@@ -74,18 +52,62 @@ public:
         echo_server.run();
     }
 
-    void sendMsg()
+    void stopServer()
     {
+        echo_server.stop_listening();
+    }
 
+    void setHld(websocketpp::connection_hdl hdl)
+    {
+        m_hdl = hdl;
+    }
+
+    void sendMsg(std::string msg)
+    {
+        try
+        {
+            echo_server.send(m_hdl, msg, websocketpp::frame::opcode::text);
+        }
+        catch (const websocketpp::lib::error_code& e)
+        {
+            std::cout << "Echo failed because: " << e << "(" << e.message() << ")" << std::endl;
+        }
+    }
+
+    void recvMsg(std::string msg)
+    {
+//        CDBG << m_hdl.lock().get();
+        CDBG << msg;
+        if(m_func)
+            m_func(msg);
+    }
+
+    void setRecvCB(std::function<void (std::string)> func)
+    {
+        m_func = func;
     }
 
 private:
     // Create a server endpoint
     server echo_server;
 
+    websocketpp::connection_hdl m_hdl;
+
+    std::function<void (std::string)> m_func;
 
 };
 
+// Define a callback to handle incoming messages
+void on_message(TWebSocketServer::TWebSocketServerImpl* s, websocketpp::connection_hdl hdl, message_ptr msg)
+{
+    s->setHld(hdl);
+    s->recvMsg(msg->get_payload());
+//    CDBG << "Hdl: " << hdl.lock().get() << " Recv: " << msg->get_payload() << std::endl;
+
+
+}
+
+///////////////////////////////
 TWebSocketServer::TWebSocketServer()
 {
     ptr = new TWebSocketServerImpl;
@@ -104,6 +126,21 @@ void TWebSocketServer::runServer(int port)
     ptr->runServer(port);
 }
 
+void TWebSocketServer::stopServer()
+{
+    ptr->stopServer();
+}
+
+void TWebSocketServer::sendMsg(std::string msg)
+{
+    ptr->sendMsg(msg);
+}
+
+void TWebSocketServer::setRecvCB(std::function<void (std::string)> func)
+{
+    ptr->setRecvCB(func);
+}
+
 } //namespace WebTool
 
 
@@ -119,6 +156,14 @@ void TWebSocketServer::runServer(int port)
 using namespace WebTool;
 int main() {
     TWebSocketServer webSocketS;
-    webSocketS.runServer(9003);
+    webSocketS.setRecvCB([&](std::string recvMsg)
+    {
+        CDBG << recvMsg;
+        if("hello" == recvMsg)
+        {
+            webSocketS.sendMsg("liukang send test");
+        }
+    });
+    webSocketS.runServer(8889);
 }
 #endif
