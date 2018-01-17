@@ -20,6 +20,7 @@
 
 #include <string>
 #include "Json/include/json.h"
+#include <vector>
 
 namespace WebTool {
 
@@ -31,14 +32,15 @@ public:
 
     bool isValid();
 
-    std::string getStr(const std::string sKey);
-    std::string getObj(const std::string sKey);
-    int getInt(const std::string sKey);
+    static std::string getStr(const std::string obj, const std::string sKey);
+    static std::string getObj(const std::string obj, const std::string sKey);
+    static int getInt(const std::string obj,  const std::string sKey);
+    static std::vector<std::string> getArray(const std::string obj, const std::string sKey);
 
-    void setStr(std::string& obj, const std::string sKey,const std::string sValue);
-    void setObj(std::string& obj, const std::string sKey,const std::string sValue);
-    void setInt(std::string& obj, const std::string sKey,const int iValue);
-
+    static void setStr(std::string& obj, const std::string sKey,const std::string sValue);
+    static  void setObj(std::string& obj, const std::string sKey,const std::string sValue);
+    static  void setInt(std::string& obj, const std::string sKey,const int iValue);
+    static  void setArray(std::string& obj, const std::string sKey, const std::vector<std::string> array);
 private:
 
     std::string m_sJson;
