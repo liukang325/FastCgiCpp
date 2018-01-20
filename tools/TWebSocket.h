@@ -1,21 +1,17 @@
-/*
- * =====================================================================================
- *
- *       Filename:  TDateTime.h
- *
- *    Description:
- *
- *        Version:  1.0
- *        Created:  2018年01月14日 21时55分58秒
- *       Revision:  none
- *       Compiler:  g++
- *
- *         Author:  liukang
- *        Company:
- *
- * =====================================================================================
- */
-
+/////////////////////////////////////////////
+///COPYRIGHT NOTICE
+/// Copyright (c) 2018
+/// All rights reserved.
+///
+/// @file TWebSocket.h
+/// @brief 封装易用的websocket服务
+///
+/// 底层实现源码来自于websocketpp
+///
+/// @version 1.0
+/// @author liukang
+/// @date 2018.01.10
+//////////////////////////////////////////////
 #pragma once
 
 #include <string>

@@ -1,21 +1,17 @@
-/*
- * =====================================================================================
- *
- *       Filename:  TEncode.h
- *
- *    Description:
- *
- *        Version:  1.0
- *        Created:  2018年01月08日 16时21分24秒
- *       Revision:  none
- *       Compiler:  g++
- *
- *         Author:  liukang
- *        Company:
- *
- * =====================================================================================
- */
-
+/////////////////////////////////////////////
+///COPYRIGHT NOTICE
+/// Copyright (c) 2018
+/// All rights reserved.
+///
+/// @file TEncode.h
+/// @brief 数据加密解密处理
+///
+/// 主要有uri, base64, md5等
+///
+/// @version 1.0
+/// @author liukang
+/// @date 2018.01.08
+//////////////////////////////////////////////
 #pragma once
 
 #include <string>

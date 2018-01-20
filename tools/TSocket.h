@@ -1,21 +1,17 @@
-/*
- * =====================================================================================
- *
- *       Filename:  TSocket.h
- *
- *    Description:
- *
- *        Version:  1.0
- *        Created:  2017年12月14日 16时24分24秒
- *       Revision:  none
- *       Compiler:  g++
- *
- *         Author:  liukang
- *        Company:
- *
- * =====================================================================================
- */
-
+/////////////////////////////////////////////
+///COPYRIGHT NOTICE
+/// Copyright (c) 2018
+/// All rights reserved.
+///
+/// @file TSocket.h
+/// @brief TcpSocket和UdpSocket类的封装
+///
+/// linux环境下 socket客户端的实现，主要为TLog类服务
+///
+/// @version 1.0
+/// @author liukang
+/// @date 2017.12.16
+//////////////////////////////////////////////
 #pragma once
 
 #include <string>

@@ -1,21 +1,15 @@
-/*
- * =====================================================================================
- *
- *       Filename:  Request.h
- *
- *    Description:  Request/Response Class
- *
- *        Version:  1.0
- *        Created:  2018年01月13日 21时30分28秒
- *       Revision:  none
- *       Compiler:  g++
- *
- *         Author:  liukang
- *        Company:
- *
- * =====================================================================================
- */
-
+/////////////////////////////////////////////
+///COPYRIGHT NOTICE
+/// Copyright (c) 2018
+/// All rights reserved.
+///
+/// @file Request.h
+/// @brief 封装 Request/Response 类
+///
+/// @version 1.0
+/// @author liukang
+/// @date 2017.12.15
+//////////////////////////////////////////////
 #pragma once
 
 #include <map>

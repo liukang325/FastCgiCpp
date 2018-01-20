@@ -1,21 +1,17 @@
-/*
- * =====================================================================================
- *
- *       Filename:  TJson.h
- *
- *    Description:
- *
- *        Version:  1.0
- *        Created:  2017年12月14日 16时24分24秒
- *       Revision:  none
- *       Compiler:  g++
- *
- *         Author:  liukang
- *        Company:
- *
- * =====================================================================================
- */
-
+/////////////////////////////////////////////
+///COPYRIGHT NOTICE
+/// Copyright (c) 2018
+/// All rights reserved.
+///
+/// @file TJson.h
+/// @brief 封装易用的json数据处理类
+///
+/// 底层实现源码来自于jsoncpp
+///
+/// @version 1.0
+/// @author liukang
+/// @date 2017.12.15
+//////////////////////////////////////////////
 #pragma once
 
 #include <string>

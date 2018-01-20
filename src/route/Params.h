@@ -1,21 +1,17 @@
-/*
- * =====================================================================================
- *
- *       Filename:  Params.h
- *
- *    Description:
- *
- *        Version:  1.0
- *        Created:  2018年01月14日 20时10分28秒
- *       Revision:  none
- *       Compiler:  g++
- *
- *         Author:  liukang
- *        Company:
- *
- * =====================================================================================
- */
-
+/////////////////////////////////////////////
+///COPYRIGHT NOTICE
+/// Copyright (c) 2018
+/// All rights reserved.
+///
+/// @file Params.h
+/// @brief 封装http请求的参数类
+///
+/// 请求参数的两种，一种为json格式；另一种为key1=value1&key2=value2&key3=value3
+///
+/// @version 1.0
+/// @author liukang
+/// @date 2018.01.15
+//////////////////////////////////////////////
 #pragma once
 
 #include <TString.h>

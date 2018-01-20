@@ -1,21 +1,17 @@
-/*
- * =====================================================================================
- *
- *       Filename:  TDateTime.h
- *
- *    Description:
- *
- *        Version:  1.0
- *        Created:  2018年01月14日 21时55分58秒
- *       Revision:  none
- *       Compiler:  g++
- *
- *         Author:  liukang
- *        Company:
- *
- * =====================================================================================
- */
-
+/////////////////////////////////////////////
+///COPYRIGHT NOTICE
+/// Copyright (c) 2018
+/// All rights reserved.
+///
+/// @file TDateTime.h
+/// @brief 时间格式的封装
+///
+/// GMT格式等，时间比较操作
+///
+/// @version 1.0
+/// @author liukang
+/// @date 2018.01.08
+//////////////////////////////////////////////
 #pragma once
 
 #include <string>

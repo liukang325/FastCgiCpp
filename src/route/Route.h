@@ -1,20 +1,15 @@
-/*
- * =====================================================================================
- *
- *       Filename:  Route.h
- *
- *    Description:
- *
- *        Version:  1.0
- *        Created:  2017年12月14日 16时50分46秒
- *       Revision:  none
- *       Compiler:  g++
- *
- *         Author:  liukang,
- *        Company:
- *
- * =====================================================================================
- */
+/////////////////////////////////////////////
+///COPYRIGHT NOTICE
+/// Copyright (c) 2018
+/// All rights reserved.
+///
+/// @file Route.h
+/// @brief http请求路由
+///
+/// @version 1.0
+/// @author liukang
+/// @date 2017.12.15
+//////////////////////////////////////////////
 #pragma once
 
 #include "Request.h"

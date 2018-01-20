@@ -1,21 +1,17 @@
-/*
- * =====================================================================================
- *
- *       Filename:  TSql.h
- *
- *    Description:
- *
- *        Version:  1.0
- *        Created:  2018年01月14日 21时30分28秒
- *       Revision:  none
- *       Compiler:  g++
- *
- *         Author:  liukang
- *        Company:
- *
- * =====================================================================================
- */
-
+/////////////////////////////////////////////
+///COPYRIGHT NOTICE
+/// Copyright (c) 2018
+/// All rights reserved.
+///
+/// @file TSql.h
+/// @brief 封装易用的SQL数据库处理类
+///
+/// 支持mysql和sqlite两种数据库
+///
+/// @version 1.0
+/// @author liukang
+/// @date 2018.01.15
+//////////////////////////////////////////////
 #pragma once
 
 #include <string>
