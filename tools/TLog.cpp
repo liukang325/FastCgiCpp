@@ -82,7 +82,13 @@ void TLog::logOut(LogLevel level, const char *file, const char *func, const int 
 
     if("file" == m_strType)
     {
-        fileWrite(std::string(message));
+        if (NULL != m_fp)
+        {
+            pthread_mutex_lock(&m_fdMutex);
+            fwrite(message.c_str(), message.length(), 1, m_fp);
+            fflush(m_fp);
+            pthread_mutex_unlock(&m_fdMutex);
+        }
     }
     else if("console" == m_strType)
     {
@@ -95,17 +101,6 @@ void TLog::logOut(LogLevel level, const char *file, const char *func, const int 
     else if("udp" == m_strType)
     {
         m_udpSocket.sendData(std::string(message));
-    }
-}
-
-int TLog::fileWrite(std::string message)
-{
-    if (NULL != m_fp)
-    {
-        pthread_mutex_lock(&m_fdMutex);
-        fwrite(message.c_str(), message.length(), 1, m_fp);
-        fflush(m_fp);
-        pthread_mutex_unlock(&m_fdMutex);
     }
 }
 
