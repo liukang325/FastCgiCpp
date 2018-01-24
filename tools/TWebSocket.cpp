@@ -76,8 +76,7 @@ public:
 
     void recvMsg(std::string msg)
     {
-//        CDBG << m_hdl.lock().get();
-        CDBG << msg;
+//        CDBG << m_hdl.lock().get() << msg;
         if(m_func)
             m_func(msg);
     }
@@ -103,8 +102,6 @@ void on_message(TWebSocketServer::TWebSocketServerImpl* s, websocketpp::connecti
     s->setHld(hdl);
     s->recvMsg(msg->get_payload());
 //    CDBG << "Hdl: " << hdl.lock().get() << " Recv: " << msg->get_payload() << std::endl;
-
-
 }
 
 ///////////////////////////////
@@ -139,6 +136,27 @@ void TWebSocketServer::sendMsg(std::string msg)
 void TWebSocketServer::setRecvCB(std::function<void (std::string)> func)
 {
     ptr->setRecvCB(func);
+}
+
+///////////////////////////////
+void TWebSocketClient::connect(std::string uri)
+{
+
+}
+
+void TWebSocketClient::disconnect()
+{
+
+}
+
+void TWebSocketClient::sendMsg(std::string msg)
+{
+
+}
+
+void TWebSocketClient::setRecvCB(std::function<void (std::string)> func)
+{
+
 }
 
 } //namespace WebTool

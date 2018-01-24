@@ -37,4 +37,21 @@ private:
 
 };
 
+class  TWebSocketClient
+{
+public:
+    TWebSocketClient();
+    ~TWebSocketClient();
+
+    void connect(std::string uri);
+    void disconnect();
+    void sendMsg(std::string msg);
+    void setRecvCB(std::function<void (std::string)> func);
+
+    class TWebSocketClientImpl;
+private:
+    TWebSocketClientImpl *ptr;
+
+};
+
 } //namespace WebTool

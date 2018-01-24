@@ -15,7 +15,6 @@
 #pragma once
 
 #include <string>
-#include "Json/include/json.h"
 #include <vector>
 
 namespace WebTool {
@@ -23,10 +22,11 @@ namespace WebTool {
 class  TJson
 {
 public:
-    TJson(std::string sJson);
-    ~TJson();
 
-    bool isValid();
+    /// @brief  获取传入的json是不是有效
+    /// @param  obj 字符串json
+    /// @return true 有效；false无效
+    static bool isValid(const std::string obj);
 
     static std::string getStr(const std::string obj, const std::string sKey);
     static std::string getObj(const std::string obj, const std::string sKey);
@@ -34,16 +34,11 @@ public:
     static std::vector<std::string> getArray(const std::string obj, const std::string sKey);
 
     static void setStr(std::string& obj, const std::string sKey,const std::string sValue);
-    static  void setObj(std::string& obj, const std::string sKey,const std::string sValue);
-    static  void setInt(std::string& obj, const std::string sKey,const int iValue);
-    static  void setArray(std::string& obj, const std::string sKey, const std::vector<std::string> array);
+    static void setObj(std::string& obj, const std::string sKey,const std::string sValue);
+    static void setInt(std::string& obj, const std::string sKey,const int iValue);
+    static void setArray(std::string& obj, const std::string sKey, const std::vector<std::string> array);
 private:
 
-    std::string m_sJson;
-
-    Json::Reader m_reader;
-    Json::Value m_root;
-    bool m_bValid;
 
 };
 

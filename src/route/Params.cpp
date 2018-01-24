@@ -5,8 +5,7 @@ Params::Params(const TString paramsStr):
     m_bJson(false)
 {
 
-    WebTool::TJson mJson(paramsStr);
-    m_bJson = mJson.isValid();
+    m_bJson = WebTool::TJson::isValid(paramsStr);
 
     if(!m_bJson)
     {
