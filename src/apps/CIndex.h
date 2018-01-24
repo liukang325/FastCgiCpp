@@ -1,20 +1,15 @@
-/*
- * =====================================================================================
- *
- *       Filename:  CIndex.h
- *
- *    Description:
- *
- *        Version:  1.0
- *        Created:  2018年01月14日 11时30分28秒
- *       Revision:  none
- *       Compiler:  g++
- *
- *         Author:  liukang,
- *        Company:
- *
- * =====================================================================================
- */
+/////////////////////////////////////////////
+///COPYRIGHT NOTICE
+/// Copyright (c) 2018
+/// All rights reserved.
+///
+/// @file CIndex.h
+/// @brief 初始页面
+///
+/// @version 1.0
+/// @author liukang
+/// @date 2018.01.10
+//////////////////////////////////////////////
 #pragma once
 
 #include "../main.h"

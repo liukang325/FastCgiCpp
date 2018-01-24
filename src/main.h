@@ -1,21 +1,15 @@
-/*
- * =====================================================================================
- *
- *       Filename:  main.h
- *
- *    Description:
- *
- *        Version:  1.0
- *        Created:  2018年01月14日 13时24分24秒
- *       Revision:  none
- *       Compiler:  g++
- *
- *         Author:  liukang
- *        Company:
- *
- * =====================================================================================
- */
-
+/////////////////////////////////////////////
+///COPYRIGHT NOTICE
+/// Copyright (c) 2018
+/// All rights reserved.
+///
+/// @file main.h
+/// @brief 一些全局包含的头文件及配置宏
+///
+/// @version 1.0
+/// @author liukang
+/// @date 2017.12.15
+//////////////////////////////////////////////
 #pragma once
 
 #include <iostream>
@@ -29,7 +23,6 @@
 #include "route/Route.h"
 #include "route/Cookie.h"
 #include "route/Params.h"
-
 
 #include "apps/CIndex.h"
 #include "apps/CLogin.h"

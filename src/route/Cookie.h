@@ -42,17 +42,17 @@ public:
     }
 
     /// 设置cookie内容
-    /// \param name cookie名字
-    /// \param value cookie值
-    /// \param expires cookie有效期,GMT格式日期字符串,默认为空
-    /// \param path cookie路径,默认为"/"
-    /// \param domain cookie域,默认为""
+    /// @param name cookie名字
+    /// @param value cookie值
+    /// @param expires cookie有效期,GMT格式日期字符串,默认为空
+    /// @param path cookie路径,默认为"/"
+    /// @param domain cookie域,默认为""
     void setCookie( const TString &name, const TString &value,
                     const TString &expires = "", const TString &path = "",
                     const TString &domain = "" );
 
     /// 清除指定的cookie内容
-    /// \param name cookie名字
+    /// @param name cookie名字
     void delCookie( const TString &name );
 
     /// 将存在结构体中的 cookie 转换为HTML头 Set-Cookie:

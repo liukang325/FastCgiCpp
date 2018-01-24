@@ -85,7 +85,7 @@ void TLog::logOut(LogLevel level, const char *file, const char *func, const int 
         if (NULL != m_fp)
         {
             pthread_mutex_lock(&m_fdMutex);
-            fwrite(message.c_str(), message.length(), 1, m_fp);
+            fwrite(message, strlen(message), 1, m_fp);
             fflush(m_fp);
             pthread_mutex_unlock(&m_fdMutex);
         }
