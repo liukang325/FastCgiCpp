@@ -18,8 +18,8 @@ int main(void)
     Route appRoute(threadCount.toInt());
     appRoute.addRoute("/", routeBind(CIndex::index, appIndex));
     appRoute.addRoute("/index", routeBind(CIndex::index, appIndex));
+    appRoute.addRoute("/logout", routeBind(CLogin::logout, appLogin));
     appRoute.addRoute("/login", routeBind(CLogin::login, appLogin));
-    appRoute.addRoute("/regist", routeBind(CLogin::regist, appLogin));
 
     appRoute.exec();
 

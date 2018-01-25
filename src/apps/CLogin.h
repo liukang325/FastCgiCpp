@@ -12,7 +12,7 @@
 //////////////////////////////////////////////
 #pragma once
 
-#include "../route/Route.h"
+#include "../main.h"
 
 class  CLogin
 {
@@ -22,7 +22,7 @@ public:
 
     Response login(Request req);
 
-    Response regist(Request req);
+    Response logout(Request req);
 
 private:
 

@@ -34,7 +34,7 @@ Response CLogin::login(Request req)
 }
 
 ///@ /regist
-Response CLogin::regist(Request req)
+Response CLogin::logout(Request req)
 {
     DBG(L_DEBUG, "method : %s,  url: %s,  params: %s, cookie: %s",
         req.getMethod().c_str(),
@@ -42,11 +42,15 @@ Response CLogin::regist(Request req)
         req.getParams().c_str(),
         req.getCookie().c_str());
 
+    Cookie reqCookie(req.getCookie());
     Response res;
     TString data;
     if("GET" == req.getMethod())
     {
-        data.sprintf("this is regist test html: %s", req.getParams().c_str());
+        reqCookie.delCookie("username");
+        reqCookie.delCookie("password");
+        data.loadFile(TString(HTML_PATH) + "login.html");
+        res.setSetCookie(reqCookie);
         res.setResData(data);
     }
     else if("POST" == req.getMethod())
