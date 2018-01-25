@@ -1,7 +1,7 @@
 project(Tool)
 
 # "true" or "false"
-set(CMAKE_TOOL_TEST  "false")
+set(CMAKE_TOOL_TEST  "true")
 
 #C++11 support
 include(CheckCXXCompilerFlag)
@@ -78,7 +78,9 @@ if (CMAKE_TOOL_TEST STREQUAL "false")
 
     target_link_libraries(Tool
             boost_system
-            boost_chrono)
+            boost_chrono
+            mysqlclient
+            sqlite3)
 
 else()
     message("=============build test true")
@@ -87,8 +89,10 @@ else()
     add_executable(TestTConf TConf.h TConf.cpp)
     add_executable(TestTLog Singleton.h TLog.h TLog.cpp TSocket.h TSocket.cpp)
 #    add_executable(TestTsocket TSocket.h TSocket.cpp)
-    add_executable(TestTSql TSql.h TSql.cpp) 
+    add_executable(TestTSql TSql.h TSql.cpp)
     target_link_libraries(TestTSql mysqlclient)
+    target_link_libraries(TestTSql sqlite3)
+
     add_executable(TestTString TString.h TString.cpp)
     add_executable(TestTJson TJson.h TJson.cpp ${jsoncpp_HEAD} ${jsoncpp_SRC})
 

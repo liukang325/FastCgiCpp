@@ -76,11 +76,28 @@ private:
     MYSQL* m_pMySql = NULL; // mysql 句柄
 };
 
-class  TSqlite: public TSql
+class TSqlData{
+
+
+
+};
+
+class TSqlite: public TSql
 {
 public:
-    TSqlite();
+    TSqlite(std::string dbFilePath);
     ~TSqlite();
+
+    int openDB();
+    int closeDB();
+
+    int execSQL(std::string sql);
+    int execSQL(std::string sql, TSqlData &retSqlData);
+
+private:
+    sqlite3* m_db;
+
+    std::string m_filePath;
 };
 
 } //namespace WebTool
