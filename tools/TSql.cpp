@@ -3,7 +3,66 @@
 #include "TSql.h"
 
 namespace WebTool {
-    
+
+TSqlData::TSqlData()
+{
+
+}
+
+TSqlData::~TSqlData()
+{
+
+}
+
+void TSqlData::addRowData(TSqlData::KeyValue sigKeyValueData, TSqlData::ColValue sigColValueData)
+{
+    m_vecKeyValueData.push_back(sigKeyValueData);
+    m_vecColValueData.push_back(sigColValueData);
+    m_row = m_vecKeyValueData.size();
+    m_col = sigKeyValueData.size();
+}
+
+int TSqlData::getRow()
+{
+    return m_row;
+}
+
+int TSqlData::getCol()
+{
+    return m_col;
+}
+
+std::string TSqlData::getData(int row, std::string key)
+{
+    if(m_vecKeyValueData.size() > row)
+    {
+        KeyValue tmpKeyValue = m_vecKeyValueData.at(row);
+        KeyValue::iterator iterMap;;
+        iterMap = tmpKeyValue.find(key);
+        if(iterMap != tmpKeyValue.end())
+        {
+            return tmpKeyValue[key];
+        }
+    }
+    return "";
+}
+
+std::string TSqlData::getData(int row, int col)
+{
+    if(m_vecColValueData.size() > row)
+    {
+        ColValue tmpColValue = m_vecColValueData.at(row);
+        ColValue::iterator iterMap;;
+        iterMap = tmpColValue.find(col);
+        if(iterMap != tmpColValue.end())
+        {
+            return tmpColValue[col];
+        }
+    }
+    return "";
+}
+
+/////////////////
 TMysql::TMysql()
 {
     m_pMySql = mysql_init(NULL);
@@ -82,11 +141,17 @@ int sqlite3Callback(void *para, int n_column, char **column_value, char **column
     //char ** column_name 跟 column_value是对应的，表示这个字段的字段名称
 
     TSqlData* sqlData = (TSqlData*)para;
-   CDBG << n_column;
-   for(int i = 0 ; i < n_column; i ++ )
-   {
+
+    TSqlData::KeyValue tmpKeyValue;
+    TSqlData::ColValue tmpColValue;
+    CDBG << n_column;
+    for(int i = 0 ; i < n_column; i ++ )
+    {
+       tmpKeyValue[column_name[i]] = column_value[i];
+       tmpColValue[i] = column_value[i];
        CDBG << column_name[i] << " = " <<column_value[i];
-   }
+    }
+    sqlData->addRowData(tmpKeyValue, tmpColValue);
    CDBG << "------------------\n";
    return 0;
 }
@@ -124,6 +189,11 @@ int main(int args, char* argv[])
 //    sqlite.execSQL("insert into tb_test values(1, 'liukang')");
 //    sqlite.execSQL("insert into tb_test values(2, 'tutu')");
     sqlite.execSQL("select * from tb_test", data);
+
+    CDBG << data.getCol();
+    CDBG << data.getRow();
+    CDBG << data.getData(0, "ID");
+    CDBG << data.getData(0, 1);
     sqlite.closeDB();
     return 0;
 }

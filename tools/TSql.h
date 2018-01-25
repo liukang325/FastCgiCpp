@@ -15,7 +15,8 @@
 #pragma once
 
 #include <string>
-
+#include <vector>
+#include <map>
 
 //sudo apt-get install libmysqlclient-dev
 //in /usr/include/mysql/mysql.h
@@ -26,7 +27,8 @@
 //sudo apt-get install libsqlite3-dev
 //in /usr/include/sqlite3.h
 #include <sqlite3.h>
-#include <string.h>
+
+
 namespace WebTool {
 
 // 错误码  
@@ -78,7 +80,34 @@ private:
 
 class TSqlData{
 
+    friend class TSqlite;
 
+public:
+    TSqlData();
+    ~TSqlData();
+
+    typedef std::map< std::string, std::string > KeyValue;
+    typedef std::map< int, std::string> ColValue;
+
+    void addRowData(TSqlData::KeyValue sigKeyValueData, TSqlData::ColValue sigColValueData);
+    int getRow();
+
+    int getCol();
+
+    std::string getData(int row, std::string key);
+    std::string getData(int row, int col);
+private:
+
+    /// 禁止调用拷贝构造函数
+    TSqlData( TSqlData &copy );
+    /// 禁止调用拷贝赋值操作
+    TSqlData& operator = ( const TSqlData& copy );
+
+    std::vector< KeyValue > m_vecKeyValueData;
+    std::vector< ColValue > m_vecColValueData;
+
+    int m_row = 0;
+    int m_col = 0;
 
 };
 
