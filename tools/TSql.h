@@ -57,7 +57,6 @@ public:
 
     void addRowData(TSqlData::KeyValue sigKeyValueData, TSqlData::ColValue sigColValueData);
     int getRow();
-
     int getCol();
 
     std::string getData(int row, std::string key);
@@ -72,21 +71,15 @@ private:
 
 };
 
-
-
-class  TSql
-{
-public:
-    TSql() = default;
-    ~TSql() = default;
-
-
-};
-
-class  TMysql : public TSql
+class  TMysql
 {
     T_DISABLE_COPY(TMysql)
 public:
+    ///@param   sIp          [in] - 主机地址
+    ///@param   uiPort       [in] - 端口号
+    ///@param   strUsername  [in] - 用户名
+    ///@param   strPassword  [in] - 密码
+    ///@param   strDatabase  [in] - 数据库
     TMysql(const std::string sIp,
            unsigned short uiPort,
            const std::string sUserName,
@@ -95,11 +88,6 @@ public:
     ~TMysql();
 
     ///@brief   连接数据库服务器 
-    ///@param   strHost      [in] - 主机地址 
-    ///@param   nPort        [in] - 端口号 
-    ///@param   strUsername  [in] - 用户名 
-    ///@param   strPassword  [in] - 密码 
-    ///@param   strDatabase  [in] - 数据库 
     ///@return  错误码 
     int openDB();
 
@@ -128,17 +116,31 @@ private:
     std::string m_sDatabase;
 };
 
-class TSqlite: public TSql
+class TSqlite
 {
     T_DISABLE_COPY(TSqlite)
 public:
+    /// @param  dbFilePath     数据库文件路径
     TSqlite(std::string dbFilePath);
     ~TSqlite();
 
+    ///@brief   打开数据库
+    ///@return  错误码
     int openDB();
+
+    /// @brief  关闭数据库
+    /// @return  错误码
     int closeDB();
 
+    /// @brief  执行SQL语句,取得查询结果
+    /// @param  sSqlStr     执行的sql语句
+    /// @return 是否成功
     int execSQL(std::string sql);
+
+    /// @brief  执行SQL语句,取得查询结果
+    /// @param  sSqlStr     执行的sql语句
+    /// @param  sqlData     储存sql语句的结果
+    /// @return 是否成功
     int execSQL(std::string sql, TSqlData &retSqlData);
 
 private:

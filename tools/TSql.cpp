@@ -187,8 +187,6 @@ TSqlite::TSqlite(std::string dbFilePath):
     m_filePath(dbFilePath)
 {
 
-
-
 }
 
 TSqlite::~TSqlite()

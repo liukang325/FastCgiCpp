@@ -26,7 +26,7 @@
 
 namespace WebTool {
 
-TConf::TConf(std::string configName):
+TConf::TConf(const std::string &configName):
     m_configName(configName)
 {
 
@@ -37,7 +37,7 @@ TConf::~TConf()
 
 }
 
-std::string TConf::getConfStr(const std::string group, const std::string key, const std::string valueDefault)
+std::string TConf::getConfStr(const std::string &group, const std::string &key, const std::string &valueDefault)
 {
     readConfig();
 
@@ -59,7 +59,7 @@ std::string TConf::getConfStr(const std::string group, const std::string key, co
     return iterValue->second;
 }
 
-bool TConf::setConfStr(const std::string group, const std::string key, const std::string value)
+bool TConf::setConfStr(const std::string &group, const std::string &key, const std::string &value)
 {
     readConfig();
 
@@ -70,7 +70,7 @@ bool TConf::setConfStr(const std::string group, const std::string key, const std
     saveConfig();
 }
 
-void TConf::delKey(const std::string group, const std::string key)
+void TConf::delKey(const std::string &group, const std::string &key)
 {
     readConfig();
     GroupDef::iterator iterGroup = m_groupConfig.find(group);
@@ -86,7 +86,7 @@ void TConf::delKey(const std::string group, const std::string key)
     saveConfig();
 }
 
-void TConf::delGroup(const std::string group)
+void TConf::delGroup(const std::string &group)
 {
     readConfig();
     GroupDef::iterator iterGroup = m_groupConfig.find(group);

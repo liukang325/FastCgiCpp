@@ -3,14 +3,14 @@
 
 namespace WebTool {
 
-bool TJson::isValid(const std::string obj)
+bool TJson::isValid(const std::string &obj)
 {
     Json::Reader jsonReader;
     Json::Value jsonRoot;
     return jsonReader.parse(obj, jsonRoot);
 }
 
-std::string TJson::getStr(const std::string obj, const std::string sKey)
+std::string TJson::getStr(const std::string &obj, const std::string &sKey)
 {
     Json::Reader jsonReader;
     Json::Value jsonRoot;
@@ -21,7 +21,7 @@ std::string TJson::getStr(const std::string obj, const std::string sKey)
     return "";
 }
 
-std::string TJson::getObj(const std::string obj, const std::string sKey)
+std::string TJson::getObj(const std::string &obj, const std::string &sKey)
 {
     Json::Reader jsonReader;
     Json::Value jsonRoot;
@@ -32,7 +32,7 @@ std::string TJson::getObj(const std::string obj, const std::string sKey)
     return "";
 }
 
-int TJson::getInt(const std::string obj,  const std::string sKey)
+int TJson::getInt(const std::string &obj,  const std::string &sKey)
 {
     Json::Reader jsonReader;
     Json::Value jsonRoot;
@@ -43,7 +43,7 @@ int TJson::getInt(const std::string obj,  const std::string sKey)
     return -1;
 }
 
-std::vector<std::string> TJson::getArray(const std::string obj, const std::string sKey)
+std::vector<std::string> TJson::getArray(const std::string &obj, const std::string &sKey)
 {
 
     std::string strArray = getObj(obj, sKey);
@@ -60,7 +60,7 @@ std::vector<std::string> TJson::getArray(const std::string obj, const std::strin
     return array;
 }
 
-void TJson::setStr(std::string& obj, const std::string sKey,const std::string sValue)
+void TJson::setStr(std::string &obj, const std::string &sKey,const std::string &sValue)
 {
     Json::Reader jsonReader;
     Json::Value jsonRoot;
@@ -69,7 +69,7 @@ void TJson::setStr(std::string& obj, const std::string sKey,const std::string sV
     obj = jsonRoot.toStyledString();
 }
 
-void TJson::setObj(std::string& obj, const std::string sKey,const std::string sValue)
+void TJson::setObj(std::string &obj, const std::string &sKey,const std::string &sValue)
 {
     Json::Reader jsonReader;
     Json::Value jsonRoot;
@@ -80,7 +80,7 @@ void TJson::setObj(std::string& obj, const std::string sKey,const std::string sV
     obj = jsonRoot.toStyledString();
 }
 
-void TJson::setInt(std::string& obj, const std::string sKey,const int iValue)
+void TJson::setInt(std::string &obj, const std::string &sKey,const int &iValue)
 {
     Json::Reader jsonReader;
     Json::Value jsonRoot;
@@ -89,7 +89,7 @@ void TJson::setInt(std::string& obj, const std::string sKey,const int iValue)
     obj = jsonRoot.toStyledString();
 }
 
-void TJson::setArray(std::string& obj, const std::string sKey, const std::vector<std::string> array)
+void TJson::setArray(std::string &obj, const std::string &sKey, const std::vector<std::string> &array)
 {
     Json::Reader jsonReader;
     Json::Value jsonRoot;

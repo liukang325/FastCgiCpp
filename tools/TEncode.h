@@ -21,22 +21,17 @@ namespace WebTool {
 class  TEncode
 {
 public:
-    TEncode();
-    ~TEncode();
+    static std::string uriEncode(const std::string &source);
+    static std::string uriDecode(const std::string &source);
 
-    static std::string uriEncode(const std::string source);
-    static std::string uriDecode(const std::string source);
+    static std::string base64Encode(const std::string &source);
+    static std::string base64Decode(const std::string &source);
 
-    static std::string base64Encode(const std::string source);
-    static std::string base64Decode(const std::string source);
-
-    static std::string md5Decode(const std::string source);
+    static std::string md5Decode(const std::string &source);
 
 private:
     /// HEX字符转换为ASC字符
-    static char hexToAsc( const std::string src );
-private:
-
+    static char hexToAsc(const std::string &src);
 
 };
 

@@ -717,20 +717,7 @@ inline void MD5::II(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x,
 }
 
 ////////////////////////////////////////////////////
-/// \brief TEncode::TEncode
-/// \param source
-///
-TEncode::TEncode()
-{
-
-}
-
-TEncode::~TEncode()
-{
-
-}
-
-std::string TEncode::uriEncode(const std::string source)
+std::string TEncode::uriEncode(const std::string &source)
 {
     const char reserved[] = ";/?:@&=+\0";
     const char unsafe[] = " \"#%<>\0";
@@ -753,7 +740,7 @@ std::string TEncode::uriEncode(const std::string source)
     return res;
 }
 
-std::string TEncode::uriDecode(const std::string source)
+std::string TEncode::uriDecode(const std::string &source)
 {
     size_t pos = 0;
     std::string seq;
@@ -775,19 +762,19 @@ std::string TEncode::uriDecode(const std::string source)
     return str;
 }
 
-std::string TEncode::base64Encode(const std::string source)
+std::string TEncode::base64Encode(const std::string &source)
 {
     Base64 b64;
     return b64.encode(source);
 }
 
-std::string TEncode::base64Decode(const std::string source)
+std::string TEncode::base64Decode(const std::string &source)
 {
     Base64 b64;
     return b64.decode(source);
 }
 
-std::string TEncode::md5Decode(const std::string source)
+std::string TEncode::md5Decode(const std::string &source)
 {
     char *buffer = NULL;
     size_t len = source.length();
@@ -802,7 +789,7 @@ std::string TEncode::md5Decode(const std::string source)
     return context.hex_digest();
 }
 
-char TEncode::hexToAsc(const std::string src)
+char TEncode::hexToAsc(const std::string &src)
 {
     char digit;
     digit = ( src[0]>='A' ? ((src[0]&0xdf)-'A')+10 : (src[0]-'0') );
