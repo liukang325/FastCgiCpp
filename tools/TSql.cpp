@@ -62,7 +62,7 @@ std::string TSqlData::getData(int row, int col)
     return "";
 }
 
-/////////////////
+
 TMysql::TMysql()
 {
     m_pMySql = mysql_init(NULL);
@@ -98,10 +98,91 @@ int TMysql::connectMySql(const std::string sIp,
     }
 }
 
-/////////////////////////////////////////////
+
+void TMysql::closeMySql()
+{
+    if(m_pMySql)
+    {
+        mysql_close(m_pMySql);    
+        std::cout << "close mysql" << std::endl;
+        m_pMySql = NULL;
+    }
+}
+
+
+int TMysql::queryMySql(const std::string sSqlStr)
+{
+    if(!m_pMySql)
+    {
+        std::cout << "sql is disconnnect!" << std::endl;
+        return MYSQL_E_CONNECT;
+    }
+    if(sSqlStr.length() == 0)
+    {
+        std::cout << "param error" << std::endl;
+        return MYSQL_E_PARAM;
+    }
+    if(mysql_real_query(m_pMySql, sSqlStr.c_str(), sSqlStr.length())\
+                != MYSQL_SUCCESS)
+    {
+        assert(m_pMySql != NULL);
+        std::cout << "mysql error: " << mysql_errno(m_pMySql) \
+            << mysql_error(m_pMySql) << std::endl;
+        return MYSQL_E_QUERY;
+    }
+    return MYSQL_SUCCESS;
+}
+
+
+int TMysql::queryMySql(const std::string sSqlStr,TSqlData &sqlData)
+{
+    if(!m_pMySql)
+    {
+        std::cout << "sql is disconnnect!" << std::endl;
+        return MYSQL_E_CONNECT;
+    }
+    if(sSqlStr.length() == 0)
+    {
+        std::cout << "param error" << std::endl;
+        return MYSQL_E_PARAM;
+    }
+    if(mysql_real_query(m_pMySql, sSqlStr.c_str(), sSqlStr.length())\
+                != MYSQL_SUCCESS)
+    {
+        assert(m_pMySql != NULL);
+        std::cout << "mysql error: " << mysql_errno(m_pMySql) \
+            << mysql_error(m_pMySql) << std::endl;
+        return MYSQL_E_QUERY;
+    }
+    auto result = mysql_store_result(m_pMySql);
+    MYSQL_FIELD* field = mysql_fetch_fields(result);
+    if(result)
+    {
+        auto num_row=mysql_num_rows(result);  
+        auto num_col=mysql_num_fields(result);
+        for(int row = 0; row < num_row; row++)
+        {
+            MYSQL_ROW mysqlRow = mysql_fetch_row(result);
+            TSqlData::ColValue colValue;
+            TSqlData::KeyValue keyValue;
+            for(int col = 0; col < num_col; col++)
+            {
+                colValue[col] = mysqlRow[col];
+                keyValue[field[col].name] = mysqlRow[col];
+            }
+            sqlData.addRowData(keyValue,colValue);
+        }
+
+    }
+    return MYSQL_SUCCESS;
+}
+
+
 TSqlite::TSqlite(std::string dbFilePath):
     m_filePath(dbFilePath)
 {
+
+
 
 }
 
@@ -170,18 +251,37 @@ int TSqlite::execSQL(std::string sql, TSqlData &retSqlData)
 
 
 
+
+
 } //namespace WebTool
 
 
 #ifdef TEST_MAIN
 int main(int args, char* argv[])
 {
-#if 0
+#if 1
     std::cout << "----------TSQL test----------" << std::endl;
     WebTool::TMysql mysql;
     mysql.connectMySql("192.168.244.131", 3306, "root",\
             "123456", "carbarn");
-#endif
+   // std::string sqlStr = "CREATE TABLE car(\
+   //       id INT UNSIGNED AUTO_INCREMENT,\
+   //       name VARCHAR(100) NOT NULL,\
+   //       LicensePlate VARCHAR(40) NOT NULL,\
+   //       date DATE,\
+   //       PRIMARY KEY (_id)\
+   //       )ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+   // mysql.queryMySql(sqlStr);
+    WebTool::TSqlData sqlData;
+    mysql.queryMySql("select * from car", sqlData);
+    CDBG << sqlData.getCol();
+    CDBG << sqlData.getRow();
+    CDBG << sqlData.getData(0, "id");
+    CDBG << sqlData.getData(0, 1);
+    std::cout << std::endl;
+    mysql.closeMySql();
+
+#else
     WebTool::TSqlite sqlite("/home/liukang/test.db");
     WebTool::TSqlData data;
     sqlite.openDB();
@@ -195,6 +295,7 @@ int main(int args, char* argv[])
     CDBG << data.getData(0, "ID");
     CDBG << data.getData(0, 1);
     sqlite.closeDB();
+#endif
     return 0;
 }
 #endif

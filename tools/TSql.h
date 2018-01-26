@@ -28,6 +28,9 @@
 //in /usr/include/sqlite3.h
 #include <sqlite3.h>
 
+#define T_DISABLE_COPY(Class)\
+    Class(const Class &) = delete;\
+    Class &operator=(const Class &) = delete;
 
 namespace WebTool {
 
@@ -43,45 +46,11 @@ enum
     MYSQL_E_MEMALLOC    = 6,    // 内存分配失败  
 };  
 
-class  TSql
-{
-public:
-    TSql() = default;
-    ~TSql() = default;
-
-
-};
-
-class  TMysql : public TSql
-{
-public:
-    TMysql();
-    ~TMysql();
-
-    /*
-    *  @brief   连接数据库服务器 
-    *  @param   strHost      [in] - 主机地址 
-    *           nPort        [in] - 端口号 
-    *           strUsername  [in] - 用户名 
-    *           strPassword  [in] - 密码 
-    *           strDatabase  [in] - 数据库 
-    *  @return  错误码 
-    **/
-int connectMySql(const std::string sIp,
-                 unsigned short uiPort,
-                 const std::string sUserName,
-                 const std::string sPassword,
-                 const std::string sDatabase);
-
-
-private:
-    MYSQL* m_pMySql = NULL; // mysql 句柄
-};
 
 class TSqlData{
 
     friend class TSqlite;
-
+    friend class TMySql;
 public:
     TSqlData();
     ~TSqlData();
@@ -99,10 +68,9 @@ public:
 private:
 
     /// 禁止调用拷贝构造函数
-    TSqlData( TSqlData &copy );
     /// 禁止调用拷贝赋值操作
-    TSqlData& operator = ( const TSqlData& copy );
-
+    T_DISABLE_COPY(TSqlData);
+    
     std::vector< KeyValue > m_vecKeyValueData;
     std::vector< ColValue > m_vecColValueData;
 
@@ -111,12 +79,67 @@ private:
 
 };
 
+
+
+class  TSql
+{
+public:
+    TSql() = default;
+    ~TSql() = default;
+
+
+};
+
+class  TMysql : public TSql
+{
+public:
+    TMysql();
+    ~TMysql();
+   
+   T_DISABLE_COPY(TMysql); 
+    
+    ///@brief   连接数据库服务器 
+    ///@param   strHost      [in] - 主机地址 
+    ///@param   nPort        [in] - 端口号 
+    ///@param   strUsername  [in] - 用户名 
+    ///@param   strPassword  [in] - 密码 
+    ///@param   strDatabase  [in] - 数据库 
+    ///@return  错误码 
+int connectMySql(const std::string sIp,
+                 unsigned short uiPort,
+                 const std::string sUserName,
+                 const std::string sPassword,
+                 const std::string sDatabase);
+
+
+    
+    /// @brief  关闭连接 
+void closeMySql();
+
+    /// @brief  执行SQL语句,取得查询结果
+    /// @param  sSqlStr     执行的sql语句
+    /// @return 是否成功 
+int queryMySql(const std::string sSqlStr);
+
+    /// @brief  执行SQL语句,取得查询结果
+    /// @param  sSqlStr     执行的sql语句
+    /// @param  sqlData     储存sql语句的结果
+    /// @return 是否成功 
+int queryMySql(const std::string sSqlStr,TSqlData &sqlData);
+
+private:
+    MYSQL* m_pMySql = NULL; // mysql 句柄
+};
+
 class TSqlite: public TSql
 {
 public:
     TSqlite(std::string dbFilePath);
     ~TSqlite();
 
+    /// 禁止调用拷贝构造函数
+    /// 禁止调用拷贝赋值操作
+    T_DISABLE_COPY(TSqlite);
     int openDB();
     int closeDB();
 
