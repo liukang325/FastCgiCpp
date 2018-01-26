@@ -99,5 +99,6 @@ else()
     add_executable(TestTWebSocket TWebSocket.h TWebSocket.cpp )
     target_link_libraries(TestTWebSocket boost_system boost_chrono)
 
+    add_executable(TestTEncode TEncode.h TEncode.cpp)
 
 endif()

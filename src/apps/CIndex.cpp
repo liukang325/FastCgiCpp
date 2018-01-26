@@ -1,5 +1,9 @@
 #include "CIndex.h"
 
+#define SESSION_PWD "abcdefgliukanghahatest"
+#define TEST_USER   "liukang"
+#define TEST_PWD    "325"
+
 CIndex::CIndex()
 {
 
@@ -25,8 +29,7 @@ Response CIndex::index(Request req)
     TString data;
     if("GET" == req.getMethod())
     {
-        if("lk" == reqCookie["username"]
-           && "325" == reqCookie["password"])
+        if(SESSION_PWD == WebTool::TEncode::base64Decode(reqCookie["session"]))
         {
             //login
             data.loadFile(TString(HTML_PATH) + "index.html");
@@ -36,8 +39,6 @@ Response CIndex::index(Request req)
             //not login
             data.loadFile(TString(HTML_PATH) + "login.html");
         }
-//        reqCookie.setCookie("username", "lk22");
-//        reqCookie.setCookie("password", "32522");
         reqCookie.delCookie("password");
         res.setSetCookie(reqCookie);
         res.setResData(data);
@@ -46,13 +47,12 @@ Response CIndex::index(Request req)
     else if("POST" == req.getMethod())
     {
         // sql database
-        if("lk" == reqParams["username"]
-                && "325" == reqParams["password"])
+        if(TEST_USER == reqParams["username"]
+                && TEST_PWD == reqParams["password"])
         {
             //login success
             data.loadFile(TString(HTML_PATH) + "index.html");
-            reqCookie.setCookie("username", "lk");
-            reqCookie.setCookie("password", "325");
+            reqCookie.setCookie("session", WebTool::TEncode::base64Encode(SESSION_PWD));
             res.setSetCookie(reqCookie);
         }
         else

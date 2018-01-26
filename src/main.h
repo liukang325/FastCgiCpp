@@ -27,7 +27,8 @@
 #include "apps/CIndex.h"
 #include "apps/CLogin.h"
 
+#include "TEncode.h"
 #include "TConf.h"
 static TConf gConf("fcgi.conf");
 
-#define HTML_PATH   "/home/liukang/workspace/FastCgiCpp/html/"
+#define HTML_PATH   "/home/liukang/RTMP/FastCgiCpp/html/"

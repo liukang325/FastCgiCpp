@@ -47,8 +47,7 @@ Response CLogin::logout(Request req)
     TString data;
     if("GET" == req.getMethod())
     {
-        reqCookie.delCookie("username");
-        reqCookie.delCookie("password");
+        reqCookie.delCookie("session");
         data.loadFile(TString(HTML_PATH) + "login.html");
         res.setSetCookie(reqCookie);
         res.setResData(data);

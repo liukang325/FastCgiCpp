@@ -814,3 +814,14 @@ char TEncode::hexToAsc(const std::string src)
 
 
 } //namespace WebTool
+
+#ifdef TEST_MAIN
+#include "TLog.h"
+int main(int args, char* argv[])
+{
+
+    CDBG <<  WebTool::TEncode::base64Encode("123456");
+    CDBG <<  WebTool::TEncode::base64Decode("MTIzNDU2");
+    return 0;
+}
+#endif
