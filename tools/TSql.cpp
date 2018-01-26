@@ -63,7 +63,16 @@ std::string TSqlData::getData(int row, int col)
 }
 
 
-TMysql::TMysql()
+TMysql::TMysql(const std::string sIp,
+               unsigned short uiPort,
+               const std::string sUserName,
+               const std::string sPassword,
+               const std::string sDatabase):
+    m_sIp(sIp),
+    m_uiPort(uiPort),
+    m_sUserName(sUserName),
+    m_sPassword(sPassword),
+    m_sDatabase(sDatabase)
 {
     m_pMySql = mysql_init(NULL);
     if(!m_pMySql)
@@ -78,16 +87,12 @@ TMysql::~TMysql()
 
 }
 
-int TMysql::connectMySql(const std::string sIp,
-                     unsigned short uiPort,
-                     const std::string sUserName,
-                     const std::string sPassword,
-                     const std::string sDatabase)
+int TMysql::openDB()
 {
-    if(mysql_real_connect(m_pMySql, sIp.c_str(),\
-                sUserName.c_str(),\
-                sPassword.c_str(),\
-                sDatabase.c_str(), uiPort, NULL, 0))
+    if(mysql_real_connect(m_pMySql, m_sIp.c_str(),\
+                m_sUserName.c_str(),\
+                m_sPassword.c_str(),\
+                m_sDatabase.c_str(), m_uiPort, NULL, 0))
     {
         std::cout << "connect mysql succeed!" << std::endl;
         return MYSQL_SUCCESS;
@@ -99,7 +104,7 @@ int TMysql::connectMySql(const std::string sIp,
 }
 
 
-void TMysql::closeMySql()
+void TMysql::closeDB()
 {
     if(m_pMySql)
     {
@@ -110,7 +115,7 @@ void TMysql::closeMySql()
 }
 
 
-int TMysql::queryMySql(const std::string sSqlStr)
+int TMysql::execSQL(const std::string sSqlStr)
 {
     if(!m_pMySql)
     {
@@ -134,7 +139,7 @@ int TMysql::queryMySql(const std::string sSqlStr)
 }
 
 
-int TMysql::queryMySql(const std::string sSqlStr,TSqlData &sqlData)
+int TMysql::execSQL(const std::string sSqlStr,TSqlData &sqlData)
 {
     if(!m_pMySql)
     {
@@ -261,9 +266,9 @@ int main(int args, char* argv[])
 {
 #if 1
     std::cout << "----------TSQL test----------" << std::endl;
-    WebTool::TMysql mysql;
-    mysql.connectMySql("192.168.244.131", 3306, "root",\
-            "123456", "carbarn");
+    WebTool::TMysql mysql("192.168.244.131", 3306, "root",\
+                          "123456", "carbarn");
+    mysql.openDB();
    // std::string sqlStr = "CREATE TABLE car(\
    //       id INT UNSIGNED AUTO_INCREMENT,\
    //       name VARCHAR(100) NOT NULL,\
@@ -273,13 +278,13 @@ int main(int args, char* argv[])
    //       )ENGINE=InnoDB DEFAULT CHARSET=utf8;";
    // mysql.queryMySql(sqlStr);
     WebTool::TSqlData sqlData;
-    mysql.queryMySql("select * from car", sqlData);
+    mysql.execSQL("select * from car", sqlData);
     CDBG << sqlData.getCol();
     CDBG << sqlData.getRow();
     CDBG << sqlData.getData(0, "id");
     CDBG << sqlData.getData(0, 1);
     std::cout << std::endl;
-    mysql.closeMySql();
+    mysql.closeDB();
 
 #else
     WebTool::TSqlite sqlite("/home/liukang/test.db");

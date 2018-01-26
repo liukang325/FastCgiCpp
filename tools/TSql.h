@@ -14,10 +14,9 @@
 //////////////////////////////////////////////
 #pragma once
 
-#include <string>
-#include <vector>
-#include <map>
+#include "ToolGlobal.h"
 
+#include <vector>
 //sudo apt-get install libmysqlclient-dev
 //in /usr/include/mysql/mysql.h
 #include <mysql.h>
@@ -28,22 +27,18 @@
 //in /usr/include/sqlite3.h
 #include <sqlite3.h>
 
-#define T_DISABLE_COPY(Class)\
-    Class(const Class &) = delete;\
-    Class &operator=(const Class &) = delete;
-
 namespace WebTool {
 
-// 错误码  
+/// 错误码
 enum  
 {  
-    MYSQL_SUCCESS       = 0,    // 成功  
-    MYSQL_E_DBINIT      = 1,    // 数据库初始化失败  
-    MYSQL_E_CONNECT     = 2,    // 数据库连接失败  
-    MYSQL_E_QUERY       = 3,    // 执行查询语句失败  
-    MYSQL_E_RESULT      = 4,    // 获取结果集出错  
-    MYSQL_E_PARAM       = 5,    // 参数错误  
-    MYSQL_E_MEMALLOC    = 6,    // 内存分配失败  
+    MYSQL_SUCCESS       = 0,    /// 成功
+    MYSQL_E_DBINIT      = 1,    /// 数据库初始化失败
+    MYSQL_E_CONNECT     = 2,    /// 数据库连接失败
+    MYSQL_E_QUERY       = 3,    /// 执行查询语句失败
+    MYSQL_E_RESULT      = 4,    /// 获取结果集出错
+    MYSQL_E_PARAM       = 5,    /// 参数错误
+    MYSQL_E_MEMALLOC    = 6,    /// 内存分配失败
 };  
 
 
@@ -51,6 +46,8 @@ class TSqlData{
 
     friend class TSqlite;
     friend class TMySql;
+    T_DISABLE_COPY(TSqlData)
+
 public:
     TSqlData();
     ~TSqlData();
@@ -67,10 +64,6 @@ public:
     std::string getData(int row, int col);
 private:
 
-    /// 禁止调用拷贝构造函数
-    /// 禁止调用拷贝赋值操作
-    T_DISABLE_COPY(TSqlData);
-    
     std::vector< KeyValue > m_vecKeyValueData;
     std::vector< ColValue > m_vecColValueData;
 
@@ -92,12 +85,15 @@ public:
 
 class  TMysql : public TSql
 {
+    T_DISABLE_COPY(TMysql)
 public:
-    TMysql();
+    TMysql(const std::string sIp,
+           unsigned short uiPort,
+           const std::string sUserName,
+           const std::string sPassword,
+           const std::string sDatabase);
     ~TMysql();
-   
-   T_DISABLE_COPY(TMysql); 
-    
+
     ///@brief   连接数据库服务器 
     ///@param   strHost      [in] - 主机地址 
     ///@param   nPort        [in] - 端口号 
@@ -105,41 +101,40 @@ public:
     ///@param   strPassword  [in] - 密码 
     ///@param   strDatabase  [in] - 数据库 
     ///@return  错误码 
-int connectMySql(const std::string sIp,
-                 unsigned short uiPort,
-                 const std::string sUserName,
-                 const std::string sPassword,
-                 const std::string sDatabase);
+    int openDB();
 
-
-    
     /// @brief  关闭连接 
-void closeMySql();
+    void closeDB();
 
     /// @brief  执行SQL语句,取得查询结果
     /// @param  sSqlStr     执行的sql语句
     /// @return 是否成功 
-int queryMySql(const std::string sSqlStr);
+    int execSQL(const std::string sSqlStr);
 
     /// @brief  执行SQL语句,取得查询结果
     /// @param  sSqlStr     执行的sql语句
     /// @param  sqlData     储存sql语句的结果
     /// @return 是否成功 
-int queryMySql(const std::string sSqlStr,TSqlData &sqlData);
+    int execSQL(const std::string sSqlStr,TSqlData &sqlData);
 
 private:
-    MYSQL* m_pMySql = NULL; // mysql 句柄
+    /// mysql 句柄
+    MYSQL* m_pMySql = NULL;
+
+    std::string m_sIp;
+    unsigned short m_uiPort;
+    std::string m_sUserName;
+    std::string m_sPassword;
+    std::string m_sDatabase;
 };
 
 class TSqlite: public TSql
 {
+    T_DISABLE_COPY(TSqlite)
 public:
     TSqlite(std::string dbFilePath);
     ~TSqlite();
 
-    /// 禁止调用拷贝构造函数
-    /// 禁止调用拷贝赋值操作
-    T_DISABLE_COPY(TSqlite);
     int openDB();
     int closeDB();
 

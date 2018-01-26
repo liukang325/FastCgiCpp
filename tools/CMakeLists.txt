@@ -45,6 +45,7 @@ set(jsoncpp_SRC
 
 set(libTool_HEAD
     ${jsoncpp_HEAD}
+    ToolGlobal.h
     Singleton.h
     TConf.h
     TLog.h
