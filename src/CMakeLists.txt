@@ -35,12 +35,14 @@ set(ROUTE_SRC
 set(APPS_HEAD
     apps/CIndex.h
     apps/CLogin.h
+    apps/CArticle.h
     main.h
     )
 
 set(APPS_SRC
     apps/CIndex.cpp
     apps/CLogin.cpp
+    apps/CArticle.cpp
     main.cpp
     )
 

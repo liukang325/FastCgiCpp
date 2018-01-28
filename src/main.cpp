@@ -12,14 +12,18 @@ int main(void)
     DBG(L_DEBUG, "===========start=========== type:%s, fileName:%s, ip:%s, port:%s",
         type.c_str(), fileName.c_str(), ip.c_str(), port.c_str());
 
-    CIndex appIndex;
-    CLogin appLogin;
+
+
 
     Route appRoute(threadCount.toInt());
+    CIndex appIndex;
     appRoute.addRoute("/", routeBind(CIndex::index, appIndex));
     appRoute.addRoute("/index", routeBind(CIndex::index, appIndex));
+    CLogin appLogin;
     appRoute.addRoute("/logout", routeBind(CLogin::logout, appLogin));
     appRoute.addRoute("/login", routeBind(CLogin::login, appLogin));
+    CArticle appArticle;
+    appRoute.addRoute("/article-list", routeBind(CArticle::articleList, appArticle));
 
     appRoute.exec();
 

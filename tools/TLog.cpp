@@ -2,7 +2,7 @@
 
 namespace WebTool {
 
-#define MAX_MSG     1000
+#define MAX_MSG     10000
 
 static char szLevelString[L_DEBUG + 1][8] =
 { "None", "Error", "Warn", "Info", "Debug"};

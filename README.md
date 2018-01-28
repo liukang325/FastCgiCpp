@@ -15,7 +15,7 @@ sudo apt-get install libfcgi-dev
 
 ```
         location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|css|js|woff|ttf|map)$ {
-            root   /home/liukang/workspace/FastCgiCpp/html;
+            root   /home/liukang/workspace/FastCgiCpp/html/example;
         }
 
         location / {

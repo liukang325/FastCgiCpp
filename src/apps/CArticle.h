@@ -3,24 +3,24 @@
 /// Copyright (c) 2018
 /// All rights reserved.
 ///
-/// @file CIndex.h
-/// @brief 初始页面
+/// @file CArticle.h
+/// @brief
 ///
 /// @version 1.0
 /// @author liukang
-/// @date 2018.01.10
+/// @date 2018.01.28
 //////////////////////////////////////////////
 #pragma once
 
 #include "../main.h"
 
-class  CIndex
+class  CArticle
 {
 public:
-    CIndex() = default;
-    ~CIndex() = default;
+    CArticle() = default;
+    ~CArticle() = default;
 
-    Response index(Request req);
+    Response articleList(Request req);
 
 
 private:

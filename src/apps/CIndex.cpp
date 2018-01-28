@@ -1,19 +1,5 @@
 #include "CIndex.h"
 
-#define SESSION_PWD "abcdefgliukanghahatest"
-#define TEST_USER   "liukang"
-#define TEST_PWD    "325"
-
-CIndex::CIndex()
-{
-
-}
-
-CIndex::~CIndex()
-{
-
-}
-
 ///@ /index
 Response CIndex::index(Request req)
 {
