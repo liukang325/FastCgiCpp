@@ -177,18 +177,18 @@ bool TString::loadFile(const std::string &filename)
 }//namespace WebTool
 
 #ifdef TEST_MAIN
-#include <iostream>
-int main(int args, char* argv[])
-{
+//#include <iostream>
+//int main(int args, char* argv[])
+//{
 
-    WebTool::TString tStr("key=value&name=lk&pwd=123");
+//    WebTool::TString tStr("key=value&name=lk&pwd=123");
 
-    std::vector<WebTool::TString> vecStr = tStr.split("&");
-    for(int i = 0; i < vecStr.size(); i++)
-    {
-        std::cout << vecStr.at(i) << "\n";
-    }
+//    std::vector<WebTool::TString> vecStr = tStr.split("&");
+//    for(int i = 0; i < vecStr.size(); i++)
+//    {
+//        std::cout << vecStr.at(i) << "\n";
+//    }
 
-    return 0;
-}
+//    return 0;
+//}
 #endif

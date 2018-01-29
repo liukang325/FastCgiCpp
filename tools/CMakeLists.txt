@@ -56,6 +56,7 @@ set(libTool_HEAD
     TEncode.h
     TDateTime.h
     TWebSocket.h
+    Template.h
     )
 
 set(libTool_SRC
@@ -69,6 +70,7 @@ set(libTool_SRC
     TEncode.cpp
     TDateTime.cpp
     TWebSocket.cpp
+    Template.cpp
     )
 
 if (CMAKE_TOOL_TEST STREQUAL "false")
@@ -94,12 +96,15 @@ else()
     target_link_libraries(TestTSql mysqlclient)
     target_link_libraries(TestTSql sqlite3)
 
-    add_executable(TestTString TString.h TString.cpp)
+#    add_executable(TestTString TString.h TString.cpp)
     add_executable(TestTJson TJson.h TJson.cpp ${jsoncpp_HEAD} ${jsoncpp_SRC})
 
     add_executable(TestTWebSocket TWebSocket.h TWebSocket.cpp )
     target_link_libraries(TestTWebSocket boost_system boost_chrono)
 
     add_executable(TestTEncode TEncode.h TEncode.cpp)
+
+    add_executable(TestTemplate Template.h Template.cpp TString.h TString.cpp)
+
 
 endif()

@@ -30,6 +30,7 @@
 
 #include "TEncode.h"
 #include "TConf.h"
+#include "Template.h"
 static TConf gConf("fcgi.conf");
 
 #define HTML_PATH   "/home/liukang/workspace/FastCgiCpp/html/example/"

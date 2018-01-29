@@ -22,15 +22,15 @@ Response CArticle::articleList(Request req)
         }
         else
         {
-            TString temStr;
-            temStr.loadFile(TString(HTML_PATH) + "template.html");
             TString dataStr;
             dataStr.loadFile(TString(HTML_PATH) + "video.html");
-            data.sprintf(temStr.c_str(), dataStr.c_str());
-            DBG(L_INFO, "%s", data.c_str());
+
+            WebTool::Template temp(TString(HTML_PATH) + "template.html");
+            temp.set("newTitle1", "testTitle");
+            temp.set("newTitle2", "article");
+            temp.set("newHtml", dataStr);
+            data = temp.toStr();
         }
-        reqCookie.delCookie("password");
-        res.setSetCookie(reqCookie);
         res.setResData(data);
 
     }
