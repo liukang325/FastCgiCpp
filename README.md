@@ -14,7 +14,7 @@ sudo apt-get install libfcgi-dev
 **3.修改Nginx的配置文件**
 
 ```
-        location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|css|js|woff|ttf|map)$ {
+        location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|css|js|woff|ttf|map|mp4)$ {
             root   /home/liukang/workspace/FastCgiCpp/html/example;
         }
 
