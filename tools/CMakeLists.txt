@@ -57,6 +57,7 @@ set(libTool_HEAD
     TDateTime.h
     TWebSocket.h
     Template.h
+    TFile.h
     )
 
 set(libTool_SRC
@@ -71,6 +72,7 @@ set(libTool_SRC
     TDateTime.cpp
     TWebSocket.cpp
     Template.cpp
+    TFile.cpp
     )
 
 if (CMAKE_TOOL_TEST STREQUAL "false")
@@ -104,7 +106,8 @@ else()
 
     add_executable(TestTEncode TEncode.h TEncode.cpp)
 
-    add_executable(TestTemplate Template.h Template.cpp TString.h TString.cpp)
 
+    add_executable(TestTemplate Template.h Template.cpp TString.h TString.cpp)
+    add_executable(TestTFile TFile.h TFile.cpp)
 
 endif()
