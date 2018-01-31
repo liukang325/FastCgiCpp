@@ -1,3 +1,9 @@
 *.txt.user
 *.txt.user.*
 *.cgi
+*.o
+*.out
+*.make
+*Build/
+*build/
+*CMakeFiles/
