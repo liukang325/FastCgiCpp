@@ -32,5 +32,12 @@ public:
 
     static bool isDir(const std::string& path);
 
+    static bool createDir(const std::string& path);
+
+    static bool copyFile(const std::string& srcFile,\
+            const std::string& dstFile);
+
+    static bool copyDir(const std::string& srcDir,\
+            const std::string& dstDir, const bool& isCover);
 };
 }   //namespace WebTool
