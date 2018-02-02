@@ -44,7 +44,14 @@ Response CIndex::index(Request req)
                 && TEST_PWD == reqParams["password"])
         {
             //login success
-            data.loadFile(TString(HTML_PATH) + "index.html");
+            TString dataStr;
+            dataStr.loadFile(TString(HTML_PATH) + "index.html");
+
+            WebTool::Template temp(TString(HTML_PATH) + "template.html");
+            temp.set("newTitle1", "首页");
+            temp.set("newTitle2", "我的桌面");
+            temp.set("newHtml", dataStr);
+            data = temp.toStr();
             reqCookie.setCookie("session", WebTool::TEncode::base64Encode(SESSION_PWD));
             res.setSetCookie(reqCookie);
         }

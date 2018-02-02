@@ -22,13 +22,21 @@ Response CArticle::articleList(Request req)
         }
         else
         {
-            TString dataListStr;
-            WebTool::Template videoTemp(TString(HTML_PATH) + "videoTemp.html");
-            videoTemp.set("videoTitle", "广告一");
-            videoTemp.set("videoSrc", "video/ad_01.mp4");
+            TString videoListStr;
+
+            std::vector<std::string> vecFile;
+            vecFile = WebTool::TFile::getFileListFromDir(TString(HTML_PATH) + "video/advideo");
+            for(auto fileName : vecFile)
+            {
+                WebTool::Template videoTemp(TString(HTML_PATH) + "videoTemp.html");
+                videoTemp.set("videoTitle", fileName);
+                videoTemp.set("videoSrc", "video/advideo/" + fileName);
+                videoListStr.append(videoTemp.toStr());
+//                DBG(L_INFO,"%s", videoTemp.toStr().c_str());
+            }
 
             WebTool::Template videoListTemp(TString(HTML_PATH) + "video.html");
-            videoListTemp.set("videoList", videoTemp.toStr());
+            videoListTemp.set("videoList", videoListStr);
 
             WebTool::Template temp(TString(HTML_PATH) + "template.html");
             temp.set("newTitle1", "testTitle");
