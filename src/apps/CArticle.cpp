@@ -25,12 +25,12 @@ Response CArticle::articleList(Request req)
             TString videoListStr;
 
             std::vector<std::string> vecFile;
-            vecFile = WebTool::TFile::getFileListFromDir(TString(HTML_PATH) + "video/advideo");
+            vecFile = WebTool::TFile::getFileListFromDir("/home/liukang/workspace/video/advideo");
             for(auto fileName : vecFile)
             {
                 WebTool::Template videoTemp(TString(HTML_PATH) + "videoTemp.html");
                 videoTemp.set("videoTitle", fileName);
-                videoTemp.set("videoSrc", "video/advideo/" + fileName);
+                videoTemp.set("videoSrc", "../../../video/advideo/" + fileName);
                 videoListStr.append(videoTemp.toStr());
 //                DBG(L_INFO,"%s", videoTemp.toStr().c_str());
             }
